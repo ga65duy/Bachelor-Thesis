@@ -1,0 +1,482 @@
+
+\section{Automatic Topic Labeling}
+\label{kap:automaticTL}
+%Topics are multinomial distributions a set of recurring themes that are discussed in the collection.
+
+%Topics are a set of recurring themes that are discussed in the collection and represent as a multinomial distribution. Often the top words of the distribution is taken to represent
+
+%of topic modeling can be used. Topic models refer to a set of algorithms that discoverthe topics or hidden thematic structure in a collection of documents. A topic modeltakes a set of documents as the input and outputs topics, a set of recurring themesthat are discussed in the collection, and the degree to which each document expressthese topics (Blei, 2012b). The results of the topic modeling algorithms can be usedto organize, visualize, summarize, and understand large collections of documents.
+
+%A topic is commonly understood to be a a phrase or subject that best describesthe content of a text. In contrast, in topic modeling, every topic is a probabilitydistribution over all words in the collection of documents. In each topic a differentset of words has a high probability and we visualize the topic by listing the mostprobable terms.
+
+Topic Models are used to discover latent topics in a corpus to help to understand large collections of documents. These topics are multinomial distributions over all words in a corpus. Normally the top terms of the distribution are taken to represent a topic but these words are often not helpful to interpret the coherent meaning of the topic. Especially, if the person is not familiar with the source collection.
+With the help of Automatic Topic Labeling (\ac{ATL}) we want to reduce the cognitive overhead of interpreting these topics and therefore facilitate the interpretation of the topics.
+Of course, the topics can be labeled manually by domain experts but this method is time consuming if there are hundreds of topics. Additionally, the topic labels can be biased towards the users opinion and the results are hard to replicate. \\
+%%TODO human turks?
+We are working with domain specific data dealing with organic food. To generate meaningful labels we can not make use of human turks but we need domain experts who are proficient in this area. Therefore we submitted the topics to our domain experts to label them. But only 50 of the generated topics for each dataset were handed in, in order to not burden them, since this process is very time-consuming. The datasets were labeled by three labelers who tried to find a suitable label, which captures the meaning of the topic and is easily understandable. After labeling every dataset the three labels were compared and a final label was set. If at least two labelers had the same label, this was taken as the final one. If the given labels were not comparable, no label was set at all. \\
+To relieve our domain experts in the following chapter two approaches of \ac{ATL} are described. In Section \ref{sec:intrinsic} an intrinsic method was used, which is only working on texts and topics from our datasets to generate the labels according \cite{Mei2007}. Section \ref{sec:extrinsic} describes an extrinsic approach by using a lexical database for the English language called \textit{Wordnet} to label the topics.
+ 
+%The domain experts labeled our topics. There were three labelers who tried to find a suitable label, which captures the meaning of the topic and is easily understandable. After labeling every dataset the three labels were compared and a final label was set. If at least two labelers had the same label, this was taken as the final one. If the given labels were not comparable, no label was set at all.\\
+
+
+\subsection{Related work}                                                
+\label{sec:relWorl: atl}
+\textit{\cite{Lau2011}} generated a label set out of the article titles which were found in Wikipedia or Google by searching the top N words from the topics, called primary candidate labels. Afterwards, these were chunkized and n-grams were generated, which were searched in Wikipedia and Google. Theses secondary candidate labels were then filtered with the \textit{related article conceptual overlap} (RACO), that removed all outlier labels, like stop words. Then the primary and secondary candidate labels were ranked by features like \ac{PMI}, used for measuring association, and the student’s t test. The results were measured with the mean absolute error score for each label, which is an average of the absolute difference between an annotator’s rating and the average rating of a label, summed across all labels. The score lay between 0.5 and 0.56 on a scale from 0 to infinity.
+
+On topics from Twitter \textit{\cite{Zhao2011}} used  a topic context sensitive Page Rank to find keywords by boosting the high relevant words to each topic. These keywords were taken to find keyword combinations (key phrases) that occur frequently in the text collection. The key phrases were ranked according to their relevance,i.e. whether they are related to the given topic and discriminative, and interestingness, the re-tweeting behavior in Twitter. To evaluate the key words Cohen’s Kappa was used to calculate the iterrater reliability between manually and automatically generated key phrases. The Cohen’s Kappa coefficient was in the range from 0.45 to 0.80, showing good agreement.
+
+\textit{\cite{Allahyari2015}} created a topic model OntoLDA which incorporates an ontology into the topic model and provides \ac{ATL} too. In comparison with \ac{LDA}, OntoLDA has an additional latent variable, called concept, between topics and words. So each document is a multinational distribution over topics, each topic is a multinomial distribution over concepts and each concept is a multinomial distribution over words.  Based on the semantics of the concepts and the ontological relationships among them the labels for the topics are generated in followin steps:
+\begin{description}
+	\item (1) construction of the semantic graph from top concepts in the given topic
+	\item (2) selection and analysis of the thematic graph (subgraph form the semantic graph)
+	\item (3) topic graph extraction from the thematic graph concepts
+	\item (4) computation of the semantic similarity between topic and the candidate labels of the topic label graph
+\end{description}
+The top N labels were compared with the labeling from \textit{\cite{Mei2007}} by calculating the precision after categorizing the labels into good and unrelated. The more labels were generated for a topic the more imprecise they got but the preciser \textit{\cite{Mei2007}} labels were.
+
+\textit{\cite{Hulpus2013}} made use of the structured data from DBpedia, that contains structured information from Wikipedia. For each word of the topic the Word-sense disambiguation (WSD) chose the correct sense for the word from a set of different possible senses. Then a topic graph was obtained form DBpedia consisting of the closest neighbors and the links between the correct senses. Assuming the topic senses which are related, lie close to each other, different centrality measures were used and evaluated manually to identify the topic labels. The final labels then were compared to textual based approaches and the precision after categorizing the labels into good and unrelated was calculated.
+
+\cite{Kou2015} captured the correlations between a topic and a label by calculating the cosine similarity between pairs of topic vectors and candidate label vectors. CBOW, Skip-gram and Letter Trigram Vectors were used. The candidate labels were extracted from Wikipedia articles that contained at least two of the top N topic words. The resulting labels for the different vector spaces were compared to automatically generated gold standard labels, representing the most frequent chunks of suitable document titles for a topic. The final labels were ranked by human annotators,too, and were considered as a better solution than the first word of the top N topic words. 
+
+For topics and preprocessed Wikipedia titles \textit{\cite{Bhatia2016}} used word and title embeddings for both, generated by either doc2vec(for fine-grained labels) or word2vec (for generic labels), to generate topic labels. The relevance of each title embedding was measured with the pairwise cosine similarity of the word embeddings for the top N topic words. The sum of of the relevance of doc2vec and vec2doc served as ranking for the labels. The results were evaluated the same way like in \cite{Lau2011}.
+
+\textit{\cite{Magatti2009}} used a given tree-structured hierarchy from the Google Directory to generate candidate labels for the topics. These were compared with the topic words applying different similarity measures showing a coherent behavior with respect to the semantics of the compared concepts. The most suitable label was then selected by exploiting a set of labeling
+rules. This approach is applicable to any topic hierarchy summarized through a tree. The resuts were promising.
+
+\textit{\cite{Mei2007}} generated labels based on the texts collection and their related topics by chunking and building n-grams. They approximated the distribution for the labels and compared these to the distribution of the topic by calculating the \ac{KL} divergence. To maximize the mutual information between the label and the topic distributions the calculated divergence has to be minimized. Three human assessors measured the results and found out that the final labels are effective and robust although applied on different genres of text collections. 
+
+
+\subsection{Intrinsic Topic Labeling}
+\label{sec:intrinsic}
+The intrinsic topic labeling is only based on the text collection and the extracted topics and does not use any external ontologies or embeddings. Because \textit{\cite{Mei2007}} were the only ones who generated topic labels by using an intrinsic approach, we decided to apply their \ac{ATL} on our data, using the implementation from Github\footnote{https://github.com/xiaohan2012/chowmein}. The implementation was adapted on our data and instead using their preprocessing ours was used.
+%TODO: wo sollen die änderungen der implementierung aufgeführt werden?hier?passt das so?
+
+In their paper \textit{\cite{Mei2007}} consider noun phrases and n-grams as candidate labels and use \ac{POS}-tags to extract the label according to some grammar from the text collection. We apply the n-grams approach to select (NN - NN) or (JJ - NN) English and (NN -NN) or (ADJD - NN) German bi-grams as suitable labels for the topics.
+
+The candidate labels were ranked by their semantical similarity to the topic model $\theta$. To measure the semantic relevance between the topic and the label \textit{l} a distribution of words \textit{w} for the label $p(w|l)$ was approximated by including a text collection \textit{C} and a distribution $p(w|l,C)$ was estimated, to substitute $p(w|l)$. Then the \ac{KL} divergence $D(\theta||l)$ was applied to calculate the closeness between the label and the topic distribution $p(w|\theta)$. So the \ac{KL} divergence served to capture how well the label fits to our topic. If the two distributions perfectly match each other and the divergence is zero we have found the best label. 
+The relevance scoring function of \textit{l}  to $\theta$ is defined as the negative \ac{KL} divergence $-D(\theta||l)$ of $p(w|\theta)$ and $p(w|l)$ and can be rewritten as follows by including \textit{C}:
+\begin{align}
+\begin{split}
+	Score(l,\theta) = &-D(\theta||l) =
+	-\sum_{w} p(w|\theta)log\frac{p(w|\theta)}{p(w|l)}\\ =
+	&-\sum_{w} p(w|\theta)log\frac{p(w|C)}{p(w|l,C)} -\sum_{w} p(w|\theta)log\frac{p(w|\theta)}{p(w|l)}\\ &-\sum_{w} p(w|\theta)log\frac{p(w|l,C)}{p(w|l)} \\ =
+	&-\sum_{w} p(w|\theta)log\frac{p(w,l|C)}{p(w|C) p(l|C)} -D(\theta||C)\\ &-\sum_{w} p(w|\theta)log\frac{p(w|l,C)}{p(w|l)}\\  =
+	&-\sum_{w} p(w|\theta) PMI(w,l|C)-D(\theta||C) + Bias(l|C) 
+\end{split}
+\end{align}
+We can see that the relevance scoring function consists of three parts. The first part represents the expectation of \ac{PMI} $E_{\theta}(PMI(w,l|C))$ between \textit{l} and the words in the topic model given the context \textit{C}, the second part by the \ac{KL} divergence between $\theta$ and \textit{C} and the third part can be viewed as a bias using context
+\textit{C} to infer the semantic relevance \textit{l} and $\theta$. This bias can be neglected for our data because we have used the same text collection for  producing the topics and the labels. The same applies to the second part, because the \ac{KL} divergence has the same value for all candidate labels. Therefore, we rank the topic labels with 
+\begin{equation}
+Score(l,\theta) = E_{\theta}(PMI(w,l|C))
+\label{Mei:Scoring}
+\end{equation}
+
+\begin{figure}[t]
+	\begin{minipage}[t]{0.5\textwidth}
+		\includegraphics[width=\textwidth]{gfx/Mei/MeiGoodLabel.png}
+	\end{minipage}
+	\begin{minipage}[t]{0.512\textwidth}
+		\includegraphics[width=\textwidth]{gfx/Mei/MeiScoring.png}
+	\end{minipage}
+	\caption[Relevance scoring function for \ac{ATL}]{Relevance scoring function for \ac{ATL}. Adapted from \cite{Mei2007}}
+	\label{pic:ScoringFunction}
+\end{figure}
+
+The relevance scoring function is also described visually in Figure \ref{pic:ScoringFunction}. The circles represent the probability of terms. The larger the circle the higher is the probability. On the left one can see that the label with lower \ac{KL} divergence is the best one. To approximate $p(w|l)$ the \textit{SIGMOD Proceedings} were used as the text collection \textit{C}. Analogously, we used our datasets. On the right one can a weighted graph, where each node is a term in the topic model $\theta$ and the edges between terms and the label are weighted by their \ac{PMI}. The weight of the node indicates the importance of a term to the topic, while the weight of each edge indicates the semantical strength between label and term. The relevance scoring function ranks a node higher if the label has a strong semantic relation to the important topical words. Visually, this can be understood that the label is ranked higher if it connects to large circle by a thick edge.
+
+So far only the labeling of a topic was considered, but a characteristic of a good label is the discrimination towards other topics in the topic model, too. It is not useful if many topics have the same labels, although it may be a good label for the topic individually, because we can not make differentiations between the topics. The label should have a high semantic relevance to a topic and low relevance to other topics. In order to take this property into account the $Score(l,\theta)$ in \ref{Mei:Scoring} was adjusted to: 
+\begin{equation}
+Score'(l,\theta_{i}) = Score(l,\\theta_{i}) - \mu Score(l,\theta_{1,...,i-1,i+1,...})
+%Score(l,\theta) = (1+\dfrac{\mu}{k-1}) E_{\theta_{i}}(PMI(w,l|C)) - \dfrac{\mu}{k-1} \sum_{j=1...k} %E_{\theta_{j}}(PMI(w,l|C))
+\end{equation}
+$\theta_{1,...,i-1,i+1,...}$ describes all topics except the $\theta_{i}$ and $\mu$ controls the discriminative power.
+
+%The semantic relevance function already guarantees that the label covers the maximal semantic information of $\theta$. Even though one label covers only a topic partially. So a selection of multiple labels for a topic shall cover different aspects of the topic. This is called the intra-topic coverage. For the selection of labels the Maximal Marginal Relevance (MMR) (\cite{Carbonell1998}) was used to get high relevant and low redundant labels.
+
+\newpage
+\subsection{Extrinsic Labeling}
+\label{sec:extrinsic}
+The majority of literature uses extrinsic topic labeling approaches, using external ontologies or data, because the gained results are better than the ones from the intrinsic approach. Existing approaches working with e.g. Wikipedia, DBpedia and Google directory used by \textit{\cite{Lau2011}}, \textit{\cite{Hulpus2013}}, \textit{\cite{Bhatia2016}} and \textit{\cite{Magatti2009}} are not applicable on our data because they are to specific. Therefore, we were looking for a method that can be applied on our domain-specific data.
+
+%We used the English online lexical database \textit{WordNet}, which organizes the different types of words like nouns, verbs, adjectives and adverbs into sets of synonyms, called \textit{synsets}. These are linked to each other according semantic relations like synonymy, antonymy, hyponymy, meronymy and troponymy. Out of these relations a tree can be drawn, which includes all the semantic relations. In our implementation we used the \textit{synonymy} and \textit{hyponymy}. If two words have the same meaning they are called synonyms e.g shut and close. If two words can be generalized by an other word this word is called hypernym e.g animal is a hypernym for cat and dog. For the word \textit{farming} \textit{WordNet} shows synsyets of nouns: 
+We used the English online database \textit{WordNet}\footnote{http://wordnetweb.princeton.edu/perl/webwn}, that contains 118.000 different word forms and 90.000 word senses. WordNet organizes the several types of words like nouns, verbs, adjectives and adverbs into sets of synonyms, called \textit{synsets}. A \textit{synonym} is a word that has the same meaning as another word. E.g \textit{shut} is a synonym for \textit{close}. These two words form together with possibly other words such as \textit{fold} a synset.
+%A synset is a group of words, that have the same meaning for a given word. E.g close, shut and fold represents a synset for the  word close.
+Additionally, a synset contains a short definition, called \textit{gloss}, and an exemplary sentence for each term in a synset, which describes the usage of this term. Every distinct word sense of a given word is represented as a single synset. So the number of different meanings for a word corresponds to the number of synsets. According to semantic relations such as synonymy, antonymy, hyponymy,hepernymy, meronymy and troponymy all synsets are linked to each other. A definition of these semantic relationships can be found in \cite{Miller1995}. For our implementation we used besides \textit{synonymy} also \textit{hypernymy}. If two words can be generalized by an other word, this word is called \textit{hypernym}. E.g \textit{animal} is a hypernym for \textit{cat} and \textit{dog}.
+
+%TODO kein excerpt falls komplette graphik
+In Figure \ref{pic:Wordnet} one can see the resulted synsets for typing the word \textit{farming} into WordNet. Synsets of nouns (\textit{farming, agriculture, husbandry} and \textit{farming, land}), verbs (two different meanings of \textit{farm} and \textit{grow, raise, farm, produce}) and adjectives (\textit{agrarian, agricultural,farm}) were found, that can be seen on the left side. For each synset the inherited hypernym can be determined. An excerpt of inherited hypernyms(\textit{cultivation,production, industry etc.}) for the synset \textit{farming, agriculture,husbandry} is shown on the right. These are forming a hierarchical tree. The lower a hypernym in the tree the more general it is. In this Figure the synset \textit{production} is more general than synset \textit{cultivation}. The most general or lower hypernym for all synsets in WordNet is \textit{entity}. 
+%TODO graphic leserlich ganzer baum?
+\begin{figure}
+	\begin{minipage}{0.5\textwidth}
+		\includegraphics[width=\textwidth]{gfx/Wordnet/farming.png}
+	\end{minipage}
+	\begin{minipage}{0.5\textwidth}
+		\includegraphics[width=\textwidth]{gfx/Wordnet/farmingTree.png}
+	\end{minipage}
+	\caption[WordNet results for the word \textit{farming}]{WordNet results for the word \textit{farming}. Adapted from \textit{WordNet}}
+	\label{pic:Wordnet}
+\end{figure}
+
+Extracting information from WordNet we used the \textit{NLTK corpus reader}.\footnote{http://www.nltk.org/howto/wordnet.html} In addition to WordNet also Polyglot \footnote{https://polyglot.readthedocs.io/en/latest/Embeddings.html} was used as kind of preprocessing for selecting similar words of a topic by using word embeddings.
+\subsubsection{Preprocessing}
+For all approaches following in the next parts we implemented a preprocessing step, that can be applied before running the different approaches for labeling a topic. It should improve the quality of the labels. 
+Our topics consists of 10 words, usually these words can not be summarized to one word, which fits to all of the topic words. Therefore, the distances between ever topic word were calculated with Polyglot embeddings. The best 5 words with the lowest distance between each other were selected. On these top words the labeling methods were applied.
+
+\subsubsection{Find labels with scoring function}
+Trying to find a good label for topics we used topic words \textit{w} and generated synsets \textit{s} for each topic word with the help of WordNet. Based on them we picked their direct hypernyms \textit{h}. To weight the hypernyms a custom scoring function (csf) was defined, which includes the number of hypernyms \textit{h} for the word \textit{w} and the number of words, that have a hypernym in common. When a hypernym for a word was found the reciprocal of the total number of hypernyms for each word was assigned to every hypernym. If a selected hypernym is used by another word, too, the scores are added and then multiplied by the number of common words. We select the final label by the highest score.
+
+Figure \ref{pic:HypFun} illustrates the scores for each hypernym, which are represented as circles above the hypernyms. The arrows connect topic words \textit{w} with synsets \textit{s}. These are connected to hypernyms \textit{h}. For $w_{1}$ each hypernym $h_{1},h_{2}$ has the value $\tfrac{1}{3}$. {$h_{4}$ and $h_{5}$ have the value $\tfrac{1}{2}$, 
+	but $h_{5}$ is connected to $s_{5}$ and $s_{6}$. Therefore, we add up $\tfrac{1}{2}$ from $w_{2}$ and $\tfrac{1}{3}$ from $w_{3}$ and multiply the result by 2. In total $h_{5}$ reaches the highest score of $\tfrac{5}{3}$ and is selected as the final label.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\textwidth]{gfx/Wordnet/HypFunF.png}
+	\caption[\ac{ATL}: Scoring function for hypernyms]{Scoring function for hypernyms}
+	\label{pic:HypFun}	
+\end{figure}
+
+\subsubsection{Find labels with similarity functions}
+In this section two approaches are shown. Working with similarity functions from WordNet and Polyglot embeddings calculating distances between words. 
+
+%TODO:verb und nomen vgl nicht möglich, erwähnen?
+WordNet offers different similarity functions, to calculate the similarity between words:\newline
+The \textit{path-similarity} is defined by the nodes, which are visited while going from one word to another using the hypernym hierarchy. The distance between two words is the number of nodes that lie on the shortest path between two words in the hierarchy. The calculated score is in range of 0 and 1, while 1 represents the identity of two words.\newline
+The \textit{lch-similarity} (Leacock-Chodorow) is based on the shortest path $p$ and the maximum depth $d$ of the taxonomy in which the words occur. The path length is scaled by the maximum depth: $-log(p/2d)$\newline
+The remaining three similarity functions are using Information Content (IC). As Information Content we used the file \textit{ic-brown.dat} from the \textit{wordnet ic} corpus.\newline
+The \textit{res-similarity}(Resnik-Similarity) weights edges between nodes by their frequency of the used textual corpus. Based on the Information Content (IC) of the Least Common Subsumer (lsc), the most specific ancestor node, a similarity score is calculated.\newline
+The \textit{jcn-similarity}(Jiang-Conrath Similarity) calculates the relationship between two words with $(IC(w_{1}) + IC(w_{2}) - 2 * IC(lcs))$ and the \textit{lin-similarity} calculates it with $2 * IC(lcs) / (IC(w_{1}) + IC(w_{2}))$.
+%path sim better then ich because the labels were more specific.
+% bsp mit tabelle, wie oft entity, abstraction, physical entity,physical object,whole
+%und beispiel mit 3topics, dass die labels besser sind
+we chose xy as the best, because... 
+
+For all topic words we generated synsets and calculated for all possible combinations of the topic words the similarities for their synsets. For every possible topic word pair the highest similarity score from the synsets was taken and the lowest common hypernym was stored. If a combination of topic words had the same lowest common hypernym the similarities were summed up. In the end the hypernym with the highest score was taken as the final label. 
+
+The same procedure was applied also with Polyglot embeddings (plg). Instead of calculating the similarity between the synsets with WordNet similarity functions, the distance function from the Polyglot library was used. The lower the distance between two words the more similar they are. The other steps remained the same.
+
+
+----
+Evaluating the automatic generated labels using different approaches, it was discovered that depending on the topics different labeling techniques output the best labels. It is not possible to tell, which approach is the best for topics, let alone for several topic models according to the labels. Therefore, we tried to evaluate the labels generated with the extrinsic methods according to word counts. The words \textit{entity, physical entity, object, whole, matter} and \textit{abstraction} were chosen, because these are the most general words in the hierarchy tree of hypernyms in WordNet and do not have a high informative value.
+%topics mit hannah und ohne hannah. 
+
+%resume: 
+To find qualitative good and meaningful labels for a topic, it is not possible to generate them only automatically, but manual labeling is needed. The knowledge and experience a human person has, can not be replaced by a machine.
+------
+-----
+
+\subsection{Evaluation}
+
+
+\subsubsection{Intrinsic topic labeling}
+%TODO nur lda nmf funktioniert nicht: nmf hat keine wahrscheinlichkeitsverteilung zwischen 0 und 1, daher haben wir es normalisiert um eine wahrscheinlichkeits verteilung zu simulieren. Uns gelang die impelementierung anzuwenden, aber es kamen bei jedem topic die gleichen labels raus... 
+We applied the \ac{ATL} described above on our Dataset, which include editorials, comments and forums. In general, the \ac{ATL} accoring to \cite{Mei2007}, outputs only different labels for topics, which were generated with \ac{LDA}. For the topics generated with \ac{NMF} the same label was given for every topic in a topic model. The reason could be, that \ac{NMF} does not have a "wahrscheinlihckeitsverteilung", but although we normalized it to numbers between 0 and 1, it was not helpful.
+
+First, we used the topics from \textit{Generation 1}, which were generated by using collocations \ref{data:preprocessing}.
+%TODO Ergebnisse von ersten daten
+Second, we used also \ac{POS}-tags,(NN - NN) or (JJ - NN) for English and (NN -NN) or (ADJD - NN) for German texts, for labeling our topics. To do so, we had to change the preprocessing because collocations can not be tagged. The other preprocessing steps were kept. Nevertheless, this changes the topics that we had before. 
+
+%TODO nur die alten daten nicht summarized Comments
+%\ref{chris:daten}. 
+
+%changed the implementation, used our preprocessing(stop words)
+%made postagging on our data 
+%without bigramms
+%with bigrams
+%with postags
+%candidate label generation:
+
+%	Code: Candidate phrase detection using pointwise mutual information: POS tag constraint can be applied. For now, only bigrams are considered.
+
+%	Changes: 
+%		-our vectorizer, 
+%		nope-throw out words which are smaller then 3 characters
+%		-used our preprocessing
+%		- generated our own postags on the data
+
+%with pos and without
+\begin{table}
+	\begin{minipage}[t]{0.5\textwidth}
+		\begin{tabular}{c|c}
+			&Topic 6\\
+			\hline
+			\hline
+			with \ac{POS}-tags & \thead{restaurant, fast, chain, meal,\\ say, menu, ingredient,\\ burger, chipotle, mcdonald } \\
+			\hline
+			(JJ, NN) & music festival   \\
+			(NN, NN) & hot fudge \\
+			-  & dunkin donuts\\
+			&
+		\end{tabular}
+		%{topic 6}
+	\end{minipage}
+	\begin{minipage}[t]{0.5\textwidth}
+		\begin{tabular}{c|c}
+			&Topic 10\\
+			\hline
+			\hline
+			& \thead{child, eat, kid,\\ parent, family,	healthy,\\ school, who, 	health,can } \\
+			\hline
+			& anorexia nervosa \\
+			& premature aging   \\
+			& anorexia nervosa	\\
+			&
+		\end{tabular}
+		%{topic 10}
+	\end{minipage}
+	\begin{minipage}[t]{0.5\textwidth}
+		\begin{tabular}{c|c}
+			&Topic 23\\
+			\hline
+			\hline
+			with \ac{POS}-tags &  \thead{meat, beef, feed,animal, grass,\\ cattle,eat,\\ raise, more, pork} \\
+			\hline
+			(JJ, NN) & sport utility \\
+			(NN, NN) & hunted game   \\
+			-& earl butz	\\
+		\end{tabular}
+	\end{minipage}
+	\hfill\hfill
+	%{topic 23}
+	\begin{minipage}[t]{0.5\textwidth}
+		\begin{tabular}{c|c}
+			&Topic 37\\
+			\hline
+			\hline
+			& \thead{carbon, climate, gas,\\ 	greenhouse, emission, change,\\ 	reduce, 	global, 	industrial, 	co2} \\
+			\hline
+			& gene splicing  \\
+			& interactive map   \\
+			& modified organisms\\
+		\end{tabular}
+	\end{minipage}
+	%{topic 37}
+	\label{tab: labeled only intrinsic}
+	\caption[Labeled topics according to \cite{Mei2007}]{Labeled topics according to \cite{Mei2007}}
+\end{table}
+
+%label counts for pos
+\begin{figure}
+	\centering
+	\begin{minipage}[b]{0.5\textwidth}
+		\includegraphics[width=7cm]{gfx/POS-gen1/mit_NN.pdf}
+	\end{minipage}%
+	\begin{minipage}[b]{0.5\textwidth}
+		\includegraphics[width=7cm]{gfx/POS-gen1/mit_JJNN.pdf}
+	\end{minipage}
+	\begin{minipage}[b]{0.5\textwidth}
+		\includegraphics[width=7cm]{gfx/POS-gen1/mit_beiden_pos.pdf}
+	\end{minipage}%
+	\begin{minipage}[b]{0.5\textwidth}
+		\includegraphics[width=7cm]{gfx/POS-gen1/ohne_POS.pdf}
+	\end{minipage}%
+	\caption{Label counts for topics including \ac{POS}-tags according to \cite{Mei2007}.}
+\end{figure}
+
+%mai with2bigrams
+\begin{figure}
+	\includegraphics[width=7cm]{gfx/POS-gen1/alte_topics.pdf}
+	\caption{Label counts for topics from Generation 1 according to \cite{Mei2007}.}
+\end{figure}
+
+
+\subsubsection{Extrinsic topic labeling}
+\subsubsection{Labeling distribution}
+
+\begin{figure}
+	\begin{minipage}[t]{0.5\textwidth}
+		\includegraphics[width=7cm]{gfx/ATL_sim/with_scoring_pre.pdf}
+	\end{minipage}
+	\begin{minipage}[t]{0.5\textwidth}
+		\includegraphics[width=7cm]{gfx/ATL_sim/with_scoring.pdf}
+	\end{minipage}
+	\caption{Label counts for topics from Generation 1 with csf.}
+\end{figure}
+
+%%labelcount uninformative words
+\begin{table}
+	\begin{tabular}{c|c|c|c|c|c|c}
+		%& \multicolumn{6}{c}{Count of labels}\\
+		%\hline
+		& entity	& physical entity & object & whole & matter & abstraction\\
+		\hline
+		path& 19		&20				  &7	   &4      &1       &33\\
+		& \textbf{7}&\textbf{7}	 &\textbf{5}  &\textbf{2} &\textbf{1} &\textbf{16}\\
+		\hline
+		ich& 29		&23				  &7	   &4      &1       &42\\
+		& \textbf{13}&\textbf{13}	 &\textbf{9}  &\textbf{3} &\textbf{1} &\textbf{25}\\
+		\hline
+		res& -		&4				  &5	   &4      &9       &5\\
+		& -			&\textbf{2}	 &\textbf{4}  &\textbf{1} &\textbf{2} &\textbf{1}\\
+		\hline
+		jsn& 19		&14				  &3	   &2      &1       &25\\
+		&10 		&\textbf{6}	 &\textbf{2}  &\textbf{2} &\textbf{2} &\textbf{9}\\
+		\hline
+		lin& -		&1				  &8	   &6      &9       &11\\
+		& -	 	&\textbf{1}	 &\textbf{3}  &\textbf{5} &\textbf{3} &\textbf{5}\\
+		\hline
+		plg& 1		&1		 &3	   &6      &4       &3\\
+		& \textbf{7}&\textbf{7}	 &\textbf{4}  &\textbf{7} &\textbf{3} &\textbf{19}\\
+	\end{tabular}
+	\label{tab: label count non informative}
+	\caption[Label counts of non informative words]{Label counts of non informative words. \textbf{Bold} numbers denote labels including preprocessing.}
+	%fett sind die preprzesseten labels
+\end{table}
+
+
+
+
+%%tabelle mit hannas
+\begin{table}
+	\begin{minipage}[t]{0.5\textwidth}
+		\begin{tabular}{c|ll}
+			&Topic 107 &\\
+			\hline
+			method & \multicolumn{2}{l} {\thead{waste, compost, use, scrap, material, \\landfill, ton, environmental, throw, gas}} \\
+			\hline
+			path & material 	& material  \\
+			ich  & abstraction	& physical entity\\
+			res  & material		& material\\
+			jsn  & abstraction	& material\\
+			lin  & material		& material\\
+			plg & waste	& abstraction\\
+			csf & convent  & lowland\\
+			manual & \multicolumn{2}{l}{waste}	\\
+			&\\
+			%{topic 107}
+		\end{tabular}
+	\end{minipage}
+	\begin{minipage}[t]{0.5\textwidth}
+		\begin{tabular}{c|ll}
+			&Topic 23 &\\
+			\hline
+			&\multicolumn{2}{l} {\thead{grow, garden, plant, farm, vegetable, \\seed, year, tomato, produce, farming}} \\
+			\hline
+			&entity 	& produce  \\
+			&entity	& produce\\
+			&produce		& produce\\
+			&produce	& produce\\
+			&produce		& produce\\
+			&vegetable	& vegetable\\
+			&cultivate  & cultivate\\
+			&\multicolumn{2}{l}{homegrown food}	\\
+			&\\
+			%{topic 23}
+		\end{tabular}
+	\end{minipage}
+	\begin{minipage}[t]{0.5\textwidth}
+		\begin{tabular}{c|ll}
+			&Topic 64 &\\
+			\hline
+			method & \multicolumn{2}{l} {\thead{milk, raw, dairy, product, cheese,  cow\\health, drink, study, claim }} \\
+			\hline
+			path & abstraction 	& beverage  \\
+			ich  & abstraction	& produce\\
+			res  & dairy product		& beverage\\
+			jsn  & produce	& beverage\\
+			lin  & beverage		& beverage\\
+			plg & dairy product	& abstraction\\
+			csf & nakedness  & farm\\
+			manual & \multicolumn{2}{l}{dairy product}	\\
+		\end{tabular}
+	\end{minipage}
+	%{topic 64}
+	\begin{minipage}[t]{0.5\textwidth}
+		\begin{tabular}{c|ll}
+			&Topic 74 &\\
+			\hline
+			&\multicolumn{2}{l} {\thead{meat, feed, beef, animal, grass, \\eat, raise, cow, buy, make}} \\
+			\hline
+			&entity 	& meat  \\
+			&entity	& abstraction\\
+			&matter		& meat\\
+			&food	& meat\\
+			&matter		& meat\\
+			&cattle	& physical entity\\
+			&cattle  & be\\
+			&\multicolumn{2}{l}{animal husbandry}	\\
+		\end{tabular}
+	\end{minipage}
+	%{topic 74}
+	\label{tab: labeled extrinsic and manually}
+	\caption[Labeled topics with extrinsic methods and manually]{Topics labeled manually and with extrinsic methods. Labels including preprocessing are in the third and fifth column.}
+\end{table}
+
+
+
+%%tabelle ohne hannah
+\begin{table}
+	\begin{minipage}[t]{0.5\textwidth}
+		\begin{tabular}{c|ll}
+			&Topic 19 &\\
+			\hline
+			method & \multicolumn{2}{l} {\thead{fish, salmon, choice , seafood, farm,\\farmed, catch, ocean, aquaculture, wild}} \\
+			\hline
+			path & physical entity 	& food  \\
+			ich  & physical entity	& food\\
+			res  & food		& food\\
+			jsn  & physical entity	& fish\\
+			lin  & location		& fish\\
+			plg & fish	& fish\\
+			csf & food  & food\\
+			& \multicolumn{2}{l}{}	\\
+		\end{tabular}
+		%{topic 19}
+	\end{minipage}
+	\begin{minipage}[t]{0.5\textwidth}
+		\begin{tabular}{c|ll}
+			&Topic 27 &\\
+			\hline
+			& \multicolumn{2}{l} {\thead{fertilizer, soil, nutrient, plant, use, \\nitrogen, need, compost, hydroponic, water}} \\
+			\hline
+			& physical entity 	& physical entity  \\
+			& physical entity	& physical entity\\
+			& substance		& matter\\
+			& nutrient	& abstraction\\
+			& substance		& matter\\
+			& chemical	& chemical\\
+			& chemical  & substance\\
+			& \multicolumn{2}{l}{}	\\
+		\end{tabular}
+		%{topic 27}
+	\end{minipage}
+	\begin{minipage}[t]{0.5\textwidth}
+		\begin{tabular}{c|cc}
+			&Topic 122 &\\
+			\hline
+			method & \multicolumn{2}{l} {\thead{pesticide, chemical, glyphosate, toxic,\\use, spray, herbicide, weed, farmer, crop}} \\
+			\hline
+			path & chemical 	& chemical  \\
+			ich  & chemical	& chemical\\
+			res  & chemical		& chemical\\
+			jsn  & pesticide	& chemical\\
+			lin  & chemical		& chemical\\
+			plg & pesticide	& chemical\\
+			csf & chemical  & chemical\\
+		\end{tabular}
+	\end{minipage}
+	%{topic 122}
+	\begin{minipage}[t]{0.5\textwidth}
+		\begin{tabular}{c|cc}
+			&Topic 100 &\\
+			\hline
+			& \multicolumn{2}{l} {\thead{child, baby, parent, kid, make, \\chemical, lead, home, mother, old}} \\
+			\hline
+			& child 	& child  \\
+			& child	& child\\
+			& relative	& child\\
+			& child	& child\\
+			& relative	& relative\\
+			& child	& person \\
+			& offspring   & offspring\\
+		\end{tabular}
+	\end{minipage}
+	%{topic 100}
+	\label{tab: labeled only extrinsic}
+	\caption[Labeled topics with extrinsic methods]{Labeled topics with extrinsic methods. Labels including preprocessing are in the third and fifth column.}
+\end{table}
+
+\subsubsection{Comparison between intrinsic and extrinsic topic labeling}
+
+
+
+
