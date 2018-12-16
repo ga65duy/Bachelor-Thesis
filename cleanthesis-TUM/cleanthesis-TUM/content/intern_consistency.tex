@@ -52,11 +52,11 @@ In Figure \ref{alpha_dist} the alpha values for each topic for German editorial 
 	\subfloat[Plotted alphas for German editorial articles]{\label{alpha_dist}\includegraphics[width=8cm]{gfx/Alphas/German_editorial_articles_with_190_topics_100.pdf}}\par\medskip
 	\begin{minipage}{0.5\textwidth}
 		\centering
-		\subfloat[Document coverage for the topic with the lowest alpha value ]{\label{alpha_min}\includegraphics[width=7cm]{gfx/doc_topic_max_min/GEA_190_minAlpha.pdf}}
+		\subfloat[Document coverage for the topic with the lowest alpha value ]{\label{alpha_min}\includegraphics[width=7cm]{gfx/doc_topic_max_min/German190t30.pdf}}
 	\end{minipage}%
 	\begin{minipage}{0.5\textwidth}
 		\centering
-		\subfloat[Document coverage for the topic with the highest alpha value]{\label{alpha_max}\includegraphics[width=7cm]{gfx/doc_topic_max_min/GEA_190_maxAlpha.pdf}}
+		\subfloat[Document coverage for the topic with the highest alpha value]{\label{alpha_max}\includegraphics[width=7cm]{gfx/doc_topic_max_min/German190t111.pdf}}
 	\end{minipage}
 	\caption[]{Alpha values for German editorial articles with 190 topics and the topic document matrices for the topic with the highest and lowest alpha value}
 	\label{alpha_example}
@@ -76,11 +76,11 @@ In Figure \ref{entropy_dist} the entropy values for each topic for German editor
 	\subfloat[Plotted entropy for German editorial articles]{\label{entropy_dist}\includegraphics[width=7cm]{gfx/Entropy/German_editorial_articles_with_190_topics100.pdf}}\par\medskip
 	\begin{minipage}{0.5\textwidth}
 		\centering
-		\subfloat[Topic coverage for the topic with the lowest enropy ]{\label{entropy_min}\includegraphics[width=6.65cm]{gfx/topic_term_max_min/GEA_190_minEntropy.pdf}}
+		\subfloat[Topic coverage for the topic with the lowest enropy ]{\label{entropy_min}\includegraphics[width=6.65cm]{gfx/topic_term_max_min/German190t13.pdf}}
 	\end{minipage}%
 	\begin{minipage}{0.5\textwidth}
 		\centering
-		\subfloat[Topic coverage for the topic with the highest entropy ]{\label{entropy_max}\includegraphics[width=7cm]{gfx/topic_term_max_min/GEA_190_maxEntropy.pdf}}
+		\subfloat[Topic coverage for the topic with the highest entropy ]{\label{entropy_max}\includegraphics[width=7cm]{gfx/topic_term_max_min/German190t100.pdf}}
 	\end{minipage}
 	\caption[]{Entropy for German editorial articles with 190 topics and the topic term matrices for the topic with the highest and lowest entropy}
 	\label{entropy_example}
@@ -114,7 +114,7 @@ In our implementation we subtracted the value from the \ac{JS} divergence from 1
 
 \subsection{Evaluation}
 %TODO den folgenden abschnitt hier oder in einleitung?stimmt nicht mancham auch nur 50 und 50 drunter
-The evaluation was conducted on German and English editorial articles. For oth datasets we studied topic model with 50 topics over and under the optimal topic number from \textit{Generation 1} and further generated topic models with 25, 50 and  75 topics. Both datasets were analyzed by applying each key figure as explained above on each topic model. The results per key figure and per topic model were then compared with each other.
+The evaluation was conducted on \textit{German} and \textit{English editorial articles}. For both datasets we studied topic model with 50 topics over and under the optimal topic number from \textit{Generation 1} and further generated topic models with 25, 50 and  75 topics. Both datasets were analyzed by applying each key figure as explained above on each topic model. The results per key figure and per topic model were then compared with each other.
 %TODO verlauf der variablen als graph hinzufügen? PROBLEM: habs auf allen daten, aber unterschiedliche ergebnisse.
 \subsubsection{Entropy}
 %%%German
@@ -161,7 +161,7 @@ The evaluation was conducted on German and English editorial articles. For oth d
 	\caption{Maximal and minimal entropy values per topic model for English editorial articles.}
 	\label{entr_english}
 \end{figure}
-The Figures \ref{entr_german} and \ref{entr_english} show the change of entropy for German respectively English editorial articles. The table on the left denotes the minimal and maximal entropy given the number of topics. On the right the maximal entropy values (blue line) and the minimal entropy values (orange line) are plotted. This structure will repeat in the different key figures.
+The Figures \ref{entr_german} and \ref{entr_english} show the change of entropy for \textit{German} respectively \textit{English editorial articles}. The table on the left denotes the minimal and maximal entropy given the number of topics. On the right the maximal entropy values (blue line) and the minimal entropy values (orange line) are plotted. This structure will repeat in the different key figures.
 
 The entropy values for \textit{German editorial articles} (Figure \ref{entr_german}) are decreasing when increasing the number of topics. For the topic model with 240 topics the entropy values starts increasing again. This means, that the topics with a higher topic number are getting more specific until a certain point, when the entropy value is increasing again. This could mean, that the optimal topic number, to generate topics, which are specific, is at the point, when the entropy value has reached its minimum.
 
@@ -270,7 +270,6 @@ The minimal alpha values for \textit{English editorial articles} (Figure \ref{al
 The maximal coherence score is for \textit{German editorial articles} (Figure \ref{eval:coherence_ger}) in the range of the maximal values -0.91 and -1.1 and for \textit{English editorial articles} (Figure \ref{eval:coherence_en}) in the range of -0.49 and -0.56. The maximal values do not change a lot for both datasets, but no pattern how the values are changing can be seen. The same can be said for the minimal coherence values, the only difference is, that the range in which the coherence is moving is much bigger than the range from the maximal values. For \textit{German editorials} it is between -3.96 and -9.2 and for \textit{English editorials} between -2.2 and -16.4.
 
 \subsubsection{Theta}
-
 \begin{figure}
 	%german
 	\begin{minipage}[t]{0.5\textwidth}
@@ -382,12 +381,12 @@ For the \textit{German editorial articles} in Figure \ref{top_per_doc_ger} it ca
 
 \subsubsection{Jensen Shannon divergence}
 %TODO
-The \ac{JS} divergence was used to calculate the similarity of topics based on the topic term matrix in a topic model and across topic models. The similarities were then visualized as heat maps. The dark red colored boxes express high similarity, while the brighter boxes express a smaller one. 
+The \ac{JS} divergence was used to calculate the similarity of topics based on the topic term matrix in a topic model and across topic models. The similarities were then visualized as heat maps. The dark red colored boxes express high similarity, while the brighter boxes express a smaller similarity.  
 %TODO heatmaps nur in anhang bzw welche hier rein?
-The topic models form \textit{German editorial articles} with 25, 50 and 70 topics were evaluated manually. The highest similarities (dark red) with the values of 0.63, 0.65, and 0.65 for the topics intra a topic model were taken, and the topics were compared with each other in Table \ref{intra_topic}. The same words form the top 10 terms of a topic were marked in bold. In Table \ref{inter_topic} the similarities of the topics were calculated across different topic models with 25/50, 50/57 and 50/75 topics. The values for the similarity were 0.9, 0.87 and 0.94. One can see, that the number of common words and the calculated similarity, is much higher in the inter topic model evaluation. This means, that the topics inter a topic model are not as similar to each other as the topics developing across topic models. At least this is not recognizable by the top 10 words of a topic. The heat maps for the inter topic model and intra topic model evaluation can be seen in Figure \ref{heatmap:inter} and \ref{heatmap_intra}.
+The topic models form \textit{German editorial articles} with 25, 50 and 70 topics were evaluated manually. The highest similarities (dark red) with the values of 0.63, 0.65, and 0.65 for the topics intra a topic model were taken, and the topics were compared with each other in Table \ref{intra_topic}. The same words form the top 10 terms of a topic were marked in bold. In Table \ref{inter_topic} the similarities of the topics were calculated across different topic models with 25/50, 50/57 and 50/75 topics. The values for the similarity were 0.9, 0.87 and 0.94. One can see, that the number of common words and the calculated similarity, is much higher in the inter topic model evaluation. This means, that the topics inter a topic model are not as similar to each other as the topics developing across topic models. At least this is not recognizable by the top 10 words of a topic. The heat maps for the inter topic model and intra topic model evaluation can be seen in Figure \ref{heatmap:inter_ger} and \ref{heatmap:intra_ger}.
+%TODO heatmaps in anhang
 
-
-
+Within the different topic models the topics are hardly similar. This is a good characteristic, because it shows, that the topic number was not over fitted. Across the topic models there are different topics, but also very similar topics, which is shown in Table \ref{min_max_sim_ger} for \textit{German editorial articles} and in Table \ref{min_max_sim_eng} for \textit{English editorial articles}. This means, when increasing the number of topics, some of the new generated topics do not change much and cover the same themes such as the previous topic model, but new topics are added, too, which cover new themes. By adding new topics the development of the topics can be tracked. 
 
 
 \begin{table}
@@ -442,15 +441,15 @@ The topic models form \textit{German editorial articles} with 25, 50 and 70 topi
 			\hline
 			25/50&0.35&0.91\\
 			25/75& 0.35 & 0.88\\
-			50/75&0.35&0.34\\
+			50/75&0.35&0.94\\
 			140/190&0.33&0.88\\
 			140/240&0.32&0.92\\
 			190/240&0.33&0.91\\
 		\end{tabular}}
 	\end{minipage}
 \caption[]{Minimal and maximal similarities inter and intra topic models for German editorial articles}
+\label{min_max_sim_ger}
 \end{figure}
-
 
 
 \begin{figure}
@@ -482,71 +481,42 @@ The topic models form \textit{German editorial articles} with 25, 50 and 70 topi
 		\end{tabular}}
 	\end{minipage}
 	\caption{Minimal and maximal similarities inter and intra topic models for English Editorial articles}
+	\label{min_max_sim_eng}
 \end{figure}
 
 
-
-\begin{figure}
-	\begin{minipage}[t]{0.5\textwidth}
-		\subfloat[Heat map for the topic model with 25 topics]{
-		\includegraphics[width=6.5cm]{gfx/JensenSH/js25.png}}
-	\end{minipage}
-	\begin{minipage}[t]{0.5\textwidth}
-		\subfloat[Heat map for the topic model with 50 topics]{
-		\includegraphics[width=6.5cm]{gfx/JensenSH/js50.png}}
-	\end{minipage}
-	\begin{minipage}[t]{0.5\textwidth}
-		\subfloat[Heat map for the topic model with 75 topics]{
-		\includegraphics[width=6.5cm]{gfx/JensenSH/js75.png}}
-	\end{minipage}
-	\begin{minipage}[t]{0.5\textwidth}
-		\subfloat[Heat map for the topic model with 140 topics]{
-		\includegraphics[width=6.5cm]{gfx/JensenSH/js140.png}}
-	\end{minipage}
-	\begin{minipage}[t]{0.5\textwidth}
-		\subfloat[Heat map for the topic model with 190 topics]{
-		\includegraphics[width=6.5cm]{gfx/JensenSH/js190.png}}
-	\end{minipage}
-	\begin{minipage}[t]{0.5\textwidth}
-		\subfloat[Heat map for the topic model with 240 topics]{
-		\includegraphics[width=6.5cm]{gfx/JensenSH/js240.png}}
-	\end{minipage}
-	\caption []{Heat maps with similarities inter a topic models for German editorial articles}
-	\label{heatmap_intra}
-\end{figure}
-
-\begin{figure}
-	\begin{minipage}[t]{0.5\textwidth}
-		\subfloat[Heat map for the topic models with 140 and 190 topics]{
-		\includegraphics[width=7cm]{gfx/JensenSH/js140190.png}}
-	\end{minipage}
-	\begin{minipage}[t]{0.5\textwidth}
-		\subfloat[Heat map for the topic models with 140 and 240 topics]{
-		\includegraphics[width=7cm]{gfx/JensenSH/js140240.png}}
-	\end{minipage}
-	\begin{minipage}[t]{0.5\textwidth}
-		\subfloat[Heat map for the topic models with 190 and 240 topics]{
-		\includegraphics[width=7cm]{gfx/JensenSH/js190240.png}}
-	\end{minipage}
-	\caption[]{Heat maps with similarities intra two topic models for German editorial articles}
-	\label{heatmap:intra}
-\end{figure}
+%TODO in anhang schieben
 
 
 \subsubsection{Correlation}
+Calculating the correlation between every key figure, the relationship over the different topic models is analyzed by using the Pearson correlation. It is a measure of the linear correlation between two variables $X$ and $Y$ and can assume values between 1 an -1, where 1 represents a total positive linear correlation, 0 no linear correlation and -1 represents a total negative linear correlation. 
 
--tried different correlations, 
-alpha and entropy correlation depends on the topic models (num of topics)
+In Figure \ref{Corr} the correlation for the key figures alpha, entropy, coherence and documents per topic is calculated. 
+On the x-axis the topic models with different topics is shown, while the y-axis shows the calculated correlation.
 
--alpha und amount doc per topic correliert zu 100 immer
+One can see, that the alpha and documents per topic values are correlating. This is, because both 
+measure the sparsity of a topic over documents in a corpus. The alpha values, coherence values and documents
+per topic values hardly correlate. From this one can deduce, that the topics, which are most present 
+in a document are not so easily interpretable for humans. Furthermore, all correlations including 
+entropy are at the beginning highly correlating, but the correlation coefficient is continuously decreasing. 
+So entropy in general seem to be a metric, which is developing independently form the other key
+figures, so from the characteristic, if a topic is rather general or specific, can not be deduced, 
+if the topic is strongly represented in a document or if it is easily interpretable.
 
-soll ich die anderen kennzahlen, auch noch auf korrelation untersuchen? 
-
-
-
+\begin{figure}
+	\begin{minipage}[t]{0.5\textwidth}
+	\subfloat[Correlation for German editorial articles]{
+	\includegraphics[width=7cm]{gfx/Correlation/6Cor_germ.pdf}}
+	\end{minipage}
+	\begin{minipage}[t]{0.5\textwidth}
+		\subfloat[Correlation for English editorial articles]{
+	\includegraphics[width=7cm]{gfx/Correlation/6Cor_eng.pdf}}
+	\end{minipage}
+\caption[]{Correlations of key figures for German and English editorial articles}
+\label{Corr}
+\end{figure}
 
 % vergleiche parameter, in tabelle, auch pearson similarity. zeigen welche werte correlieren.
-%TODO wo pearson sim erklären?
 
 
 % jenson shannon to calculate the distance
@@ -559,115 +529,23 @@ soll ich die anderen kennzahlen, auch noch auf korrelation untersuchen?
 %Annahme: 
 %hohe entropy bei topic term -> hohe bei doc topic 
 %dh, topic enthält die 
-\begin{figure}[h]
-	\begin{minipage}[t]{0.5\textwidth}
-		\includegraphics[width=7cm]{gfx/Correlation/German_editorial_articles_with_140_topics.pdf}
-	\end{minipage}
-	\begin{minipage}[t]{0.5\textwidth}
-		\includegraphics[width=7cm]{gfx/Correlation/German_editorial_articles_with_190_topics.pdf}
-	\end{minipage}
-	\begin{minipage}[t]{0.5\textwidth}
-		\includegraphics[width=7cm]{gfx/Correlation/German_editorial_articles_with_240_topics.pdf}
-	\end{minipage}
-	\caption{ea}[Correlation between alpha and entropy for German editorial articles]
-	\label{correlation}
-\end{figure}
-
-pearson correlation: 
-80: 0.18203719
-130: -0.18759358
-180: -0.24035685
+%\begin{figure}[h]
+%	\begin{minipage}[t]{0.5\textwidth}
+%		\includegraphics[width=7cm]{gfx/Correlation/German_editorial_articles_with_140_topics.pdf}
+%	\end{minipage}
+%	\begin{minipage}[t]{0.5\textwidth}
+%		\includegraphics[width=7cm]{gfx/Correlation/German_editorial_articles_with_190_topics.pdf}
+%	\end{minipage}
+%	\begin{minipage}[t]{0.5\textwidth}
+%		\includegraphics[width=7cm]{gfx/Correlation/German_editorial_articles_with_240_topics.pdf}
+%	\end{minipage}
+%	\caption{ea}[Correlation between alpha and entropy for German editorial articles]
+%	\label{correlation}
+%\end{figure}
 
 resume: besten kriterien lassen sich nicht so leich bestimmen. da es vom datensatz abhägen kann, aus wie vielen dokumenten besteht der corpus, wie lang sind diese documente. und wie spezifisch sind die themen, die in einem document behandelt werden.
 
 
-%%%%mit top 20
-%\begin{figure}[h]
-%	\begin{minipage}[t]{0.5\textwidth}
-%		\includegraphics[width=7cm]{gfx/Alphas/German_editorial_articles_with_140_topics_20.pdf}
-%	\end{minipage}
-%	\begin{minipage}[t]{0.5\textwidth}
-%		\includegraphics[width=7cm]{gfx/Alphas/German_editorial_articles_with_190_topics_20.pdf}
-%	\end{minipage}
-%	\begin{minipage}[t]{0.5\textwidth}
-%		\includegraphics[width=7cm]{gfx/Alphas/German_editorial_articles_with_240_topics_20.pdf}
-%	\end{minipage}
-%	\caption{}[Alpha for the top-20 topics from German editorial articles]
-%	\label{alphas:top20}
-%\end{figure}
-%%%%mit allen lineplot
-%\begin{figure}[h]
-%	\begin{minipage}[t]{0.5\textwidth}
-%		\includegraphics[width=7cm]{gfx/Alphas/German_editorial_articles_with_140_topics_100.pdf}
-%	\end{minipage}
-%	\begin{minipage}[t]{0.5\textwidth}
-%		\includegraphics[width=7cm]{gfx/Alphas/German_editorial_articles_with_190_topics_100.pdf}
-%	\end{minipage}
-%	\begin{minipage}[t]{0.5\textwidth}
-%		\includegraphics[width=7cm]{gfx/Alphas/German_editorial_articles_with_240_topics_100.pdf}
-%	\end{minipage}
-%	\caption{}[Alpha for all topics from German editorial articles]
-%	\label{alphas}
-%\end{figure}
-%
-%
-%%%%entropy top 20
-%\begin{figure}[h]
-%	\begin{minipage}[t]{0.5\textwidth}
-%		\includegraphics[width=7cm,height=6cm]{gfx/Entropy/German_editorial_articles_with_140_topics20.pdf}
-%	\end{minipage}
-%	\begin{minipage}[t]{0.5\textwidth}
-%		\includegraphics[width=7cm,height=6cm]{gfx/Entropy/German_editorial_articles_with_190_topics20.pdf}
-%	\end{minipage}
-%	\begin{minipage}[t]{0.5\textwidth}
-%		\includegraphics[width=7cm,height=6cm]{gfx/Entropy/German_editorial_articles_with_240_topics20.pdf}
-%	\end{minipage}
-%	\caption{}[Entropy for the top-20 topics from German editorial articles]
-%	\label{entrop_top20}
-%\end{figure}
-%
-%\begin{figure}[h]
-%	\begin{minipage}[t]{0.5\textwidth}
-%		\includegraphics[width=7cm,height=6cm]{gfx/Entropy/German_editorial_articles_with_140_topics100.pdf}
-%	\end{minipage}
-%	\begin{minipage}[t]{0.5\textwidth}
-%		\includegraphics[width=7cm,height=6cm]{gfx/Entropy/German_editorial_articles_with_190_topics100.pdf}
-%	\end{minipage}
-%	\begin{minipage}[t]{0.5\textwidth}
-%		\includegraphics[width=7cm,height=6cm]{gfx/Entropy/German_editorial_articles_with_240_topics100.pdf}
-%	\end{minipage}
-%	\caption{}[Entropy for all topics from German editorial articles]
-%	\label{entropy}
-%\end{figure}
+%TODO: in anhang schieben.
 
-
-%TODO: entropy, alpha, e_a muss ausgewechselt werden
-%%%%%%english editorial fürn Anhang
-%\begin{figure}[h]
-%	\begin{minipage}[t]{0.5\textwidth}
-%		\includegraphics[width=7cm]{gfx/english_editorial InternConsistency/jh80130.png}
-%	\end{minipage}
-%	\begin{minipage}[t]{0.5\textwidth}
-%		\includegraphics[width=7cm]{gfx/english_editorial InternConsistency/js80180.png}
-%	\end{minipage}
-%	\begin{minipage}[t]{0.5\textwidth}
-%		\includegraphics[width=7cm]{gfx/english_editorial InternConsistency/js130180.png}
-%	\end{minipage}
-%	\caption{js modelvgl}
-%	\label{}
-%\end{figure}
-%
-%\begin{figure}[h]
-%	\begin{minipage}[t]{0.5\textwidth}
-%		\includegraphics[width=7cm]{gfx/english_editorial InternConsistency/jshannon80-h.png}
-%	\end{minipage}
-%	\begin{minipage}[t]{0.5\textwidth}
-%		\includegraphics[width=7cm]{gfx/english_editorial InternConsistency/jshannon130-h.png}
-%	\end{minipage}
-%	\begin{minipage}[t]{0.5\textwidth}
-%	\includegraphics[width=7cm]{gfx/english_editorial InternConsistency/jshannon180-h.png}
-%	\end{minipage}
-%	\caption{js}
-%	\label{}
-%\end{figure}
 \newpage
