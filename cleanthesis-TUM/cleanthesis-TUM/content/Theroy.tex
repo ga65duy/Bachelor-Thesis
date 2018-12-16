@@ -1,11 +1,11 @@
 \chapter{Methodology}
+\label{methodology}
 %TODO
 In this chapter the basic principles for the following chapters will be explained.
-The Section \ref{sec:docrep} describes how documents can be numerically represented. Section \ref{sec:topicmodel} then will introduce the three Topic Models \ac{LDA}, \ac{NMF} and \ac{HLDA} which are used in this thesis.
+Section \ref{sec:docrep} describes how documents can be numerically represented and how a fixed vector representation of documents can be reached. In Section \ref{sec:topicmodel} then will explained why Topic models are necessary and three Topic Models \ac{LDA}, \ac{NMF} and \ac{HLDA} will be describe, which were used in this thesis.
 
 \section{Document representation}
 \label{sec:docrep}
-
 \subsection{Bag of Words}
 The Bag of Words \ac{BoW} model serves as a numerical representation of a document, which is used as input for further \ac{NLP} tasks.
 It represents the document simply by the counts for each word. The grammar and the ordering of the words are ignored, so some information is lost. The document \textit{John likes organic but Mary doesn't} and the document {Mary likes organic but John doesn't} have the same \ac{BoW} representation although these differ in context. Nevertheless, similar \ac{BoW} imply similar document content (\cite{Manning2008}). 
@@ -33,6 +33,7 @@ The vector space model forms with the documents \textit{$D_{i}$} and all unique 
 In Table \ref{tab:doc_term_lda} the term frequency and in Table \ref{tab:doc_term_nmf}  \ac{tfidf} is calculated from three sample documents: \textit{Doc 1: Organic is healthier then conventional food}, \textit{Doc 2: I buy organic} and \textit{Doc 3: Organic is wasted money}.
 In this thesis both topic modeling algorithms take the document term matrix as input, but with different weightings. For \ac{LDA} the term frequency and for \ac{NMF} the \ac{tfidf} weighting  is used.\\
 \begin{table}[h]
+	\small
 	\begin{tabular}{lcccccccccc}
 		\toprule
 		& organic & is & healthier & then & conventional & food & i &buy& wasted  & money \\ \midrule
@@ -43,8 +44,9 @@ In this thesis both topic modeling algorithms take the document term matrix as i
 	\caption[Sample term frequency matrix]{Document term matrix with term-frequency weighting as used by \ac{LDA}.}
 	\label{tab:doc_term_lda}
 \end{table}	
-%TODO umrechnen
+
 \begin{table}[h]
+	\footnotesize
 	\begin{tabular}{lllllllllll}
 		\toprule
 		& organic & is & healthier & then & conventional & food & i &buy& wasted  & money \\ \midrule
@@ -60,7 +62,7 @@ In this thesis both topic modeling algorithms take the document term matrix as i
 \section{Topic Modeling}
 \label{sec:topicmodel}
 Every day large amounts of information are collected and become available. The vast quantities of data make it difficult to access those information we are looking for. Therefore we need methods that help us to organize, summarize and understand large collections of data.\\
-Topic Modeling is used to process large collections efficiently.It helps to discover hidden themes or rather topics of document collections. A topic is a multinomial distribution over all words in a corpus. Of course the probabilities over each word are different. 
+Topic Modeling is used to process large collections efficiently. It helps to discover hidden themes or rather topics of document collections. A topic is a multinomial distribution over all words in a corpus. Of course the probabilities over each word are different. 
 
 
 
@@ -76,4 +78,4 @@ Topic Modeling is used to process large collections efficiently.It helps to disc
 
 \subsection{Hierarchical Latent Dirichlet Allocation}
 
-
+\newpage

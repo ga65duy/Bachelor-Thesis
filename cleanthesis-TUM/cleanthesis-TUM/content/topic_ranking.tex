@@ -3,18 +3,86 @@
 
 
 \subsection{Related work}
+-Topic Signi¯cance Ranking of LDA Generative
+Models
 
 \subsection{Topic Coherence}
+Actually, good topics were determined from domain experts after topic labeling. The topics were labels from three labelers. If only one labeler or none of the labelers could assign a label the label was ranked with relevance score 0 otherwise with 1.
+
+
+Actually, topic ranking with the help of labeling the topics 
+
+
+topics. However, not all the es-
+timated topics are of equal importance or correspond to genuine themes
+of the domain. Some of the topics can be a collection of irrelevant or
+background words, or represent insigni¯cant themes.
+identify and distinguish
+junk topics from legitimate ones, and to rank the topic signi¯cance. The
+
+The setting of the number of latent variables K is extremely critical and
+directly e®ects the quality of the model and the interpretability of the estimated
+topics. Models with very few topics would result in broad topic de¯nitions that
+could be a mixture of two or more distributions.
+topics is low in signi¯cance and
+often meaningless.
+
 
 %document topic matrix theta
-\subsection{Theta}
+\subsection{Summed Theta $\theta$}
 %select topics that occure in most of the documents
 %sumed up theata over all documents and rank it according to the highest
 %TODO: was mit doc 1 = 80 und doc 2 = 20
-\subsection{Iterrater reliability}
+\subsection{Iter-rater reliability}
+%iter rater für alle datasets
 
+%de_edit_art:  0.8225175207062891
+%
+%de_edit_comm:  0.853215284249767
+%
+%de_forum:  0.818621523579202
+%
+%en_edit_art:  0.828312425602051
+%
+%en_edit_comm: 0.4876510772464529
+%
+%en_forum: 0.8628132430949332
+%
+%The topics were labeled manually by three labelers. To evaluate the iter-rater reliability for every dataset the \textit{Fleiß kappa}\footnote{https://en.wikipedia.org/wiki/Fleiss\%27_kappa} was used. Fleiß kappa is a statistical measurement 
+
+%TODO genaue berechnung von fleiss kappa?
+Fleiss' kappa (named after Joseph L. Fleiss) is a statistical measure for assessing the reliability of agreement between a fixed number of raters when assigning categorical ratings to a number of items or classifying items.
+cohens kapp only for max 2raters
+
+%If the raters are in complete agreement then κ = 1   {\displaystyle \kappa =1~} \kappa =1~. If there is no agreement among the raters (other than what would be expected by chance) then κ ≤ 0 {\displaystyle \kappa \leq 0} \kappa \leq 0. 
+
+%< 0 	Poor agreement
+0.01 – 0.20 	Slight agreement
+0.21 – 0.40 	Fair agreement
+0.41 – 0.60 	Moderate agreement
+0.61 – 0.80 	Substantial agreement
+0.81 – 1.00 	Almost perfect agreement
+
+he value pj is the proportion of all assignments (raters * number of topics) that were made to the jth category.
+
+k:The value is between 0 and 1.
+The higher the value the better is the agreement between the raters.
+
+N = anzahl an topics.
+n = anzahl an labelers (3)
+k = anzahl an labels
 %%rel work
 % sumeed up theta
 % vis doc topic visualization
 %coherence
 
+\subsubsection{Coherence}
+Hallo @Maria Potzner. Meinem Eindruck nach hat der Score wenig Aussagekraft. Man kann kaum sagen, dass Topics, die weiter oben stehen "besser" sind als jene, die weiter unten stehen. Einen Treshold festzulegen ist daher erst recht nicht möglich.
+
+SUMMED Theta:ab hier die topics rauswerfen", ein solcher Treshold wäre dann auch bei jedem der 6 models untschiedlich. Die topics am Ende kommen eben seltener vor, es sind aber trotzdem sehr sinnvolle auch am Ende dabei, während am Anfang auch einige "non-sense" topics stehen, zB Zeile 17 letztes Tabellenblatt.
+
+Also was für mich im Moment am besten erscheint wäre tatsächlich eine Selektion und Labelling durch den Domain expert. Dann kann man z.B. noch ein Ranking nach Topic-Häufigkeit machen.
+
+
+
+\newpage

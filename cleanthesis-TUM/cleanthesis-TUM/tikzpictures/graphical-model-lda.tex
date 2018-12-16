@@ -1,0 +1,37 @@
+\begin{tikzpicture}[x=1.7cm,y=1.8cm]
+	
+	% Nodes
+	\node[obs] (W) {$w_{d,n}$} ; 
+	\node[latent, left =of W] (Z) {$z_{d,n}$} ; 
+	\node[latent, left =of Z] (TH) {$\theta_d$} ; 
+	\node[const, left =of TH] (AL) {$\alpha$} ; 
+	\node[latent, right =of W] (PH) {$\phi_k$} ; 
+	\node[const, right =of PH] (BE) {$\beta$} ; 
+	
+	% Edges
+	\edge {Z} {W} ; 
+	\edge {TH} {Z}; 
+	\edge {AL} {TH};
+	\edge {PH} {W};
+	\edge {BE} {PH};
+
+	%Plates
+	\plate {topicsPlate} {(PH)} {$K$} ; 
+	\plate {wordsPlate} {(W) (Z)} {$N_d$} ; 
+	\plate {documentsPlate} {(wordsPlate) (TH)} {$D$}
+	
+	%Description
+	\node[ below= 2cm of AL, align=center] (A) {document\\hyperparameter} ;
+	\node[ below= 3.5 cm of TH, align=center] (DTH) {per-document  \\topic distribution} ;
+	\node[ below= 2cm of Z, align=center] (DZ) {per-word \\ topic assignment} ;
+	\node[ below= 3.5cm of W, align=center] (DW) {observed \\ word} ;
+	\node[ below= 2cm of PH, align=center] (DPH) {topics} ;
+	\node[ below= 2cm of BE, align=center] (DBE) {topic \\ hyperparameter} ;
+	\draw[dotted] (A) -- (AL) ;
+	\draw[dotted] (DTH) -- (TH) ;
+	\draw[dotted] (DZ) -- (Z) ;
+	\draw[dotted] (DW) -- (W) ;
+	\draw[dotted] (DPH) -- (PH) ;
+	\draw[dotted] (DBE) -- (BE) ;
+	\end{tikzpicture}
+	

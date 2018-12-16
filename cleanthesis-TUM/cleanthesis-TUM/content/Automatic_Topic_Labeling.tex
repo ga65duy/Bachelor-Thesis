@@ -1,26 +1,16 @@
 
 \section{Automatic Topic Labeling}
-\label{kap:automaticTL}
-%Topics are multinomial distributions a set of recurring themes that are discussed in the collection.
+\label{automaticTL}
+Topic Models are used to discover latent topics in a corpus to help to understand large collections of documents. These topics are multinomial distributions over all words in a corpus. Normally, the top terms of the distribution are taken to represent a topic, but these words are often not helpful to interpret the coherent meaning of the topic. Especially, if the person is not familiar with the source collection. For example, for the topic \textit{price, \$, cost, foods, store, product, brand, low, supermarket, good} a  suitable label is \textit{food prices}.
 
-%Topics are a set of recurring themes that are discussed in the collection and represent as a multinomial distribution. Often the top words of the distribution is taken to represent
+With the help of \acf{ATL} we want to reduce the cognitive overhead of interpreting these topics and, therefore, facilitate the interpretation of the topics.
+Of course, the topics can be labeled manually by domain experts, but this method is time consuming if there are hundreds of topics. Additionally, the topic labels can be biased towards the users opinion and the results are hard to replicate. 
 
-%of topic modeling can be used. Topic models refer to a set of algorithms that discoverthe topics or hidden thematic structure in a collection of documents. A topic modeltakes a set of documents as the input and outputs topics, a set of recurring themesthat are discussed in the collection, and the degree to which each document expressthese topics (Blei, 2012b). The results of the topic modeling algorithms can be usedto organize, visualize, summarize, and understand large collections of documents.
-
-%A topic is commonly understood to be a a phrase or subject that best describesthe content of a text. In contrast, in topic modeling, every topic is a probabilitydistribution over all words in the collection of documents. In each topic a differentset of words has a high probability and we visualize the topic by listing the mostprobable terms.
-
-Topic Models are used to discover latent topics in a corpus to help to understand large collections of documents. These topics are multinomial distributions over all words in a corpus. Normally, the top terms of the distribution are taken to represent a topic, but these words are often not helpful to interpret the coherent meaning of the topic. Especially, if the person is not familiar with the source collection. For example, for the topic \textit{price, \$, cost, foods, store, product, brand, low, supermarket, good} a  suitable label is \textit{food prices}.\\
-
-With the help of Automatic Topic Labeling (\ac{ATL}) we want to reduce the cognitive overhead of interpreting these topics and, therefore, facilitate the interpretation of the topics.
-Of course, the topics can be labeled manually by domain experts, but this method is time consuming if there are hundreds of topics. Additionally, the topic labels can be biased towards the users opinion and the results are hard to replicate. \\
-
-%%TODO human turks?
-We are working with domain specific data dealing with organic food. To generate meaningful labels we can not make use of human turks because we need domain experts who are proficient in this area. Therefore, we submitted the topics to our domain experts to label them. But only 50 of the generated topics, ranked according to the importance in a corpus, for each dataset were handed in, in order to not burden them, since this process is very time-consuming. The datasets were labeled by three labelers who tried to find a suitable label, which captures the meaning of the topic and is easily understandable. After labeling, the three labels of a topic were compared and a final label was set. If at least two labelers had the same label, this was taken as the final one. If the given labels were not comparable, no label was set at all. \\
+We are working with domain specific data dealing with organic food. To generate meaningful labels we can not make use of human turks because we need domain experts who are proficient in this area. Therefore, we submitted the topics to our domain experts to label them. But only 50 of the generated topics, ranked according to the importance in a corpus, for each dataset were handed in, in order to not burden them, since this process is very time-consuming. The datasets were labeled by three labelers who tried to find a suitable label, which captures the meaning of the topic and is easily understandable. After labeling, the three labels of a topic were compared and a final label was set. If at least two labelers had the same label, this was taken as the final one. If the given labels were not comparable, no label was set at all. 
 
 %After labeling, for every dataset three labels suitable to each single topic were compared and a final label was set. 
 To relieve our domain experts in the following chapter two approaches for \ac{ATL} are described. In Section \ref{sec:intrinsic} an intrinsic method was used, which is only working on texts and topics from our datasets to generate the labels according \cite{Mei2007}. Section \ref{sec:extrinsic} describes an extrinsic approach by using a lexical database for the English language called \textit{Wordnet} to label the topics.
 %The domain experts labeled our topics. There were three labelers who tried to find a suitable label, which captures the meaning of the topic and is easily understandable. After labeling every dataset the three labels were compared and a final label was set. If at least two labelers had the same label, this was taken as the final one. If the given labels were not comparable, no label was set at all.\\
-
 
 \subsection{Related work}                                                
 \label{sec:relWorl: atl}
@@ -57,9 +47,9 @@ rules. This approach is applicable to any topic hierarchy summarized by a tree.
 The intrinsic topic labeling is based only on a text collection and therefrom extracted topics.It does not use any external ontologies or embeddings. Because \textit{\cite{Mei2007}} were the only ones who generated topic labels by using an intrinsic approach, we decided to apply their \ac{ATL} on our data, using an implementation from Github\footnote{https://github.com/xiaohan2012/chowmein}. The implementation was adapted to our data and instead of using their preprocessing ours was used.
 %TODO: wo sollen die änderungen der implementierung aufgeführt werden?hier?passt das so? ANTWORT: Würdest du die Änderungen noch ausführlicher beschreiben? Was für Änderungen wurden alles vorgenommen? Wenn es so bleibt wie das hier dann passt es. Wenn es umfangreicher wird, solltest du einen seperaten Abschnitt verfassen
 
-In their paper \textit{\cite{Mei2007}} consider noun phrases and n-grams as candidate labels and use \ac{POS}-tags to extract the labels according to some grammar from the text collection. We apply the n-grams approach to select (NN - NN) or (JJ - NN) English and (NN -NN) or (ADJD - NN) German bi-grams as suitable labels for the topics.
+In their paper \textit{\cite{Mei2007}} consider noun phrases and n-grams as candidate labels and use \acf{POS}-tags to extract the labels according to some grammar from the text collection. We apply the n-grams approach to select (NN - NN) or (JJ - NN) English and (NN -NN) or (ADJD - NN) German bi-grams as suitable labels for the topics.
 
-The candidate labels were ranked by their semantic similarity to the topic distribution $\theta$. To measure the semantic relevance between a topic and a label \textit{l} a distribution of words \textit{w} for the label $p(w|l)$ was approximated by including a text collection \textit{C} and a distribution $p(w|l,C)$ was estimated, to substitute $p(w|l)$. Then the \ac{KL} divergence $D(\theta||l)$ was applied to calculate the closeness between the label and the topic distribution $p(w|\theta)$. So the \ac{KL} divergence served to capture how well the label fits to the topic. If the two distributions perfectly match each other and the divergence is zero we have found the best label. 
+The candidate labels were ranked by their semantic similarity to the topic distribution $\theta$. To measure the semantic relevance between a topic and a label \textit{l} a distribution of words \textit{w} for the label $p(w|l)$ was approximated by including a text collection \textit{C} and a distribution $p(w|l,C)$ was estimated, to substitute $p(w|l)$. Then the \acf{KL} divergence $D(\theta||l)$ was applied to calculate the closeness between the label and the topic distribution $p(w|\theta)$. So the \ac{KL} divergence served to capture how well the label fits to the topic. If the two distributions perfectly match each other and the divergence is zero we have found the best label. 
 The relevance scoring function of \textit{l}  to $\theta$ is defined as the negative \ac{KL} divergence $-D(\theta||l)$ of $p(w|\theta)$ and $p(w|l)$ and can be rewritten as follows by including \textit{C}:
 \begin{align}
 \begin{split}
@@ -162,25 +152,25 @@ The same procedure was applied also with Polyglot embeddings (plg). Instead of c
 
 \subsection{Evaluation}
 %TODO im anhang nur wortvertilungen kein topic vergleich, ist das ok, fur alle daten. Oder auch topics zum veranschaulichen rausziehn? Oder komplett bleiben lassen und nur die english editrial nehmen? ANTWORT: Zunächst bleiben lassen wenn zum Schluss Zeit über ist, kannst du den Anhang noch um die anderen Datasets erweitern. Wenn du das machst, reicht es die Wortverteilungen zu plotten.
-In the following section the results of intrinsic and extrinsic topic labeling will be evaluated regarding their quality and the number of different labels in a topic model. The labels generated automatically, are also compared to the manual labels, assigned by the domain experts. For evaluation we used English editorial articles.%TODO hier erwähnen? ANTWORT: Was willst du hier erwähnen? das wir nur english editorials im text behandeln
+In the following section the results of intrinsic and extrinsic topic labeling will be evaluated regarding their quality and the number of different labels in a topic model. The labels generated automatically, are also compared to the manual labels, which were assigned by the domain experts. For the evaluation we used English editorial articles. %TODO hier erwähnen? ANTWORT: Was willst du hier erwähnen? das wir nur english editorials im text behandeln
 %In section \ref{eval:intrinsic} we evaluate the intrinsic and in section \ref{eval:extrinsic} the extrinsic topic labeling. Afterwards, the the intrinsic and extrinsic labellings are compared with each other in section \ref{eval:comparison}. 
-First, we evaluate the intrinsic and second, the extrinsic topic labeling. Afterwards, the the intrinsic and extrinsic labellings are compared with each other. 
+First, we evaluate the intrinsic and second, the extrinsic topic labeling. Afterwards, the intrinsic and extrinsic labellings are compared with each other. 
 
 \subsubsection{Intrinsic topic labeling}
 \label{eval:intrinsic}
-We applied the \ac{ATL} in section \ref{sec:intrinsic} on our Dataset, which include editorials, comments and forums. In general, the \ac{ATL} according to \cite{Mei2007}, outputs only different labels for topics, which were generated with \ac{LDA}. For the topics generated with \ac{NMF} the same label was given for every topic in a topic model. The reason could be, that \ac{NMF} does not have a probability distribution for $\theta$, but although we normalized it to numbers between 0 and 1, it was not helpful. Therefore, the labels for topics generated with \ac{NMF} were neglected. Further evaluations are based on English editorial articles. 
+We applied the \ac{ATL} in section \ref{sec:intrinsic} on our datasets, which include editorials, comments and forums. In general, the \ac{ATL} according to \cite{Mei2007}, outputs only different labels for topics, which were generated with \ac{LDA}. For the topics generated with \ac{NMF} the same label was given for every topic in a topic model. The reason could be, that \ac{NMF} does not return a probability distribution for every document. Normalizing the values between 0 and 1 did not lead to an improvement. Therefore, the labels for topics generated with \ac{NMF} were neglected. Further evaluations are based on English editorial articles. 
 \paragraph{Topics from Generation 1}
-First, we used the topics from \textit{Generation 1}, which were generated by using collocations as described in \ref{data:preprocessing}. In Figure \ref{fig:labelcount_intrinsic} the label counts for English editorial articles are shown. On the x-axis all labels are listen while the y-axis denotes the number of same labels. 
-Considering the labels without a concrete topic assignment one can see, that they are meaningful and specific. Often, a label is a persons name e.g {\textit{Jose Andres, Rahm Emanuel, Morgan Stanly,Gloria Casas, Theresa Eisemann etc.}}.
+First, we used the topics from \textit{Generation 1}, which were generated as described in \ref{data:preprocessing}. In Figure \ref{fig:labelcount_intrinsic} the label counts for English editorial articles are shown. On the x-axis all labels are listen, while the y-axis denotes the number of topics, that the label was assigned to. 
+Considering just  the labels without verifying the topics, they are assigned to, the labels seem to be meaningfull and specific. Often, a label is a persons name e.g {\textit{Jose Andres, Rahm Emanuel, Morgan Stanly,Gloria Casas, Theresa Eisemann etc.}}.
 %mai with2bigrams
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=7cm]{gfx/POS-gen1/alte_topics.pdf}
+	\includegraphics[width=7cm,height=7.5cm]{gfx/POS-gen1/alte_topics.pdf}
 	\caption[Label counts for topics from Generation 1 with intrinsic labeling]{Label counts for topics from Generation 1 according to \cite{Mei2007}.}
 	\label{fig:labelcount_intrinsic}
 \end{figure}
 
-In Table \ref{tab:extrinsic_manually} example topics are shown, which were labeled manually by domain experts and with the intrinsic approach. The intrinsic labels do not really fit to the given topic: \textit{Rahm Emanuel} an American politician is assigned to Topic 107, which deals with environment and waste. \textit{Hairy vetch}, a plant variety, for Topic 23. \textit{Irritable bowel syndrome}  to Topic 64 and \textit{Safran Foer}, an American novelist, to Topic 74, dealing with animal husbandry. The automatic labels have nothing in common with the manual ones.
+In Table \ref{tab:extrinsic_manually} example topics are shown, which were labeled manually by domain experts and with the intrinsic approach. The intrinsic labels do not fit to the given topic: \textit{Rahm Emanuel} an American politician is assigned to Topic 107, which deals with environment and waste. \textit{Hairy vetch}, a plant variety, for Topic 23. \textit{Irritable bowel syndrome}  to Topic 64 and \textit{Safran Foer}, an American novelist, to Topic 74, dealing with animal husbandry. The automatic labels have nothing in common with the manual ones.
 % mai label und hannah
 %%tabelle mit hannas
 \begin{table}[h]
@@ -238,7 +228,7 @@ In Table \ref{tab:extrinsic_manually} example topics are shown, which were label
 %In their paper \textit{\cite{Mei2007}} consider noun phrases and n-grams as candidate labels and use \ac{POS}-tags to extract the label according to some grammar from the text collection. We apply the n-grams approach to select (NN - NN) or (JJ - NN) English and (NN -NN) or (ADJD - NN) German bi-grams as suitable labels for the topics.
 %TODO soll die pos taggs genannt werden, auch wenn ich nur hier englische nehme? ANTWORT: Hinweis dass mit Spacy getagged wurde und in den Fußnoten ein Link zu der Seite die die POS-Tags erklärt
 
-By providing \ac{POS}-tags, using Spacy\footnote{Possible POS-tags: https://spacy.io/api/annotation}, we can limit the canidate labels to certain word types. In our experiments we used (NN-NN) or (JJ-NN) \ac{POS}-tags for English topic labels and (NN-NN) or (ADJD-NN) for German.  To apply \ac{POS}-tagging, the preprocessing for the texts had to be changed, because in Generation 1, a collocation finder was used. After performing this step the \ac{POS}-tags can not be applied retroactively. We removed collocation finding and added \ac{POS}-tagging. All other preprocessing steps remained the same. Nevertheless, the topics differ from the ones of Generation 1. 
+By providing \ac{POS}-tags, using Spacy\footnote{Possible POS-tags: https://spacy.io/api/annotation}, we can limit the labels to certain word types. In our experiments we used (NN-NN) or (JJ-NN) \ac{POS}-tags for English topic labels and (NN-NN) or (ADJD-NN) for German.  To apply \ac{POS}-tagging, the preprocessing for the texts had to be changed, because in Generation 1, a collocation finder was used. After performing this step the \ac{POS}-tags could not be applied retroactively. Therefore, we removed collocation finding and added \ac{POS}-tagging. All other preprocessing steps remained the same. Nevertheless, the topics differ from the ones of Generation 1. 
 
 In Table \ref{tab:intrinsic_label_pos} topics and labels are shown with different \ac{POS}-tags. In comparison to the labels generated without \ac{POS}-tagging, these labels seem closer to a topic. For Topic 6, 10, 23 and 37 the labels \textit{music festival, premature aging, hunted games} and \textit{modified organism} seem good.
 
@@ -301,26 +291,25 @@ In Table \ref{tab:intrinsic_label_pos} topics and labels are shown with differen
 \end{table}
 
 %TODO: besser ausdrücken, dass keine postags angewandt wurden, aber es trotzdem nicht die topics von generation 1 sind. ANTWORT: Ich denke das wird bereits klar. Höchstens in der Bildunterschrift noch erklären. Erklärung im Fließtext ist nicht nötig
-In Figure \ref{fig:labelcount_intrinsic_pos} the label counts for English editorial articles using the texts, that were \ac{POS}-tagged are shown. On the x-axis all labels are listen while the y-axis denotes the number of same labels. 
+In Figure \ref{fig:labelcount_intrinsic_pos} the label counts for English editorial articles using the texts, that were \ac{POS}-tagged are shown. On the x-axis all labels are listed, while the y-axis denotes the number of same labels. 
 In the plots where \ac{POS}-tags were applied, no labels include a name of persons and a smaller number of labels was outputted in contrast to the plot without \ac{POS}-tags. 
 
-However, the same observation can be made as above. Although, the labels seem meaningful and specific they do not really fit to the topics. We assume that the high quality of the labels themselves stem from the way they are generated. By applying bi-gram mining on the original corpus only useful word combinations are found as candidate labels. That the labels seemingly don’t fit to the topics means that measuring the relatedness between the topics and the labels by their KL-divergence is not successful on our data.
+However, the same observation can be made as above. Although, the labels seem meaningful and specific they do not really fit to the topics. We assume that the high quality of the labels themselves stem from the way they are generated. By applying bi-gram mining on the original corpus only useful word combinations are found as candidate labels. That the labels seemingly do not fit to the topics means that measuring the relatedness between the topics and the labels by their KL-divergence is not successful on our data.
 
 %label counts for pos
 \begin{figure}[h]
-	\centering
 	\begin{minipage}[t]{0.5\textwidth}
-		\includegraphics[width=7cm]{gfx/POS-gen1/mit_NN.pdf}
-	\end{minipage}%
-	\begin{minipage}[t]{0.5\textwidth}
-		\includegraphics[width=7cm]{gfx/POS-gen1/mit_JJNN.pdf}
+		\includegraphics[width=7cm,height=7.5cm]{gfx/POS-gen1/mit_NN.pdf}
 	\end{minipage}
 	\begin{minipage}[t]{0.5\textwidth}
-		\includegraphics[width=7cm]{gfx/POS-gen1/mit_beiden_pos.pdf}
-	\end{minipage}%
+		\includegraphics[width=7cm,height=7.5cm]{gfx/POS-gen1/mit_JJNN.pdf}
+	\end{minipage}
 	\begin{minipage}[t]{0.5\textwidth}
-		\includegraphics[width=7cm]{gfx/POS-gen1/ohne_POS.pdf}
-	\end{minipage}%
+		\includegraphics[width=7cm,height=7.5cm]{gfx/POS-gen1/mit_beiden_pos.pdf}
+	\end{minipage}
+	\begin{minipage}[t]{0.5\textwidth}
+		\includegraphics[width=7cm,height=7.5cm]{gfx/POS-gen1/ohne_POS.pdf}
+	\end{minipage}
 	\caption{Label counts for topics including \ac{POS}-tags with intrinsic method.}
 	\label{fig:labelcount_intrinsic_pos}
 \end{figure}
@@ -328,7 +317,7 @@ However, the same observation can be made as above. Although, the labels seem me
 \subsubsection{Extrinsic topic labeling}
 \label{eval:extrinsic}
 %TODO keine anhang infos für andere daten... hab alles per hand gemacht...
-We applied the \ac{ATL} in section \ref{sec:intrinsic} on our Dataset, using the English online database WordNet and Polyglot embeddings. The different similarity functions from WordNet, the \ac{csf} and the Polyglot embeddings were used to label our topics. A few examples are shown in Table \ref{tab: labeled_extrinsic_and_manually} including the manual assigned labels to the topics, too. Some labels generated with the automatic approaches match with the manual assigned labels. This is the case for the Topics 64, 84 and 107. For the other topics, the labels heading to the right direction as the manual label: for Topic 97 \textit{chemical} and manually \textit{pesticide residues}, for Topic 99 \textit{bee} and manually \textit{beekeeping} and for Topic 109 \textit{grocery store, mercantile establishment, marketplace} and manually \textit{retailers} was assigned.
+Furthermore, we applied the \ac{ATL} in section \ref{sec:extrinsic} on our Dataset, using the English online database WordNet and Polyglot embeddings. The described different similarity functions from WordNet, the \ac{csf} and the Polyglot embeddings were used to label our topics. A few examples are shown in Table \ref{tab:labeled_extrinsic_and_manually} including the manual assigned labels to the topics, too. Some labels generated with the automatic approaches match the manual assigned labels. This is the case for the Topics 64, 84 and 107. For the other topics, the labels are heading to the same direction as the manual label: for Topic 97 \textit{chemical} and manually \textit{pesticide residues}, for Topic 99 \textit{bee} and manually \textit{beekeeping} and for Topic 109 \textit{grocery store, mercantile establishment, marketplace} and manually \textit{retailers} were assigned.
 %%tabelle mit hannas
 \begin{table}
 	\begin{minipage}[t]{0.5\textwidth}
@@ -474,10 +463,10 @@ We applied the \ac{ATL} in section \ref{sec:intrinsic} on our Dataset, using the
 	\end{minipage}
 	%{topic 74}
 	\caption[Labeled topics with extrinsic methods and manually]{Topics labeled from Generation 1 manually and with extrinsic methods. Labels including preprocessing are in the third and fifth column. \textbf{Bold} words are the same as the manual assigned label.}
-	\label{tab: labeled_extrinsic_and_manually}
+	\label{tab:labeled_extrinsic_and_manually}
 \end{table}
 Evaluating the automatically generated labels using different approaches, it was discovered that depending on the topics different labeling techniques output the best labels. It is not possible to tell, which approach is the best for all topics, let alone for several topic models according to the labels. Therefore, we tried to evaluate the labels generated with the extrinsic methods according to label counts. The words \textit{entity, physical entity, object, whole, matter} and \textit{abstraction} were chosen, because these are the most general words in the hierarchical tree of hypernyms in WordNet and do not have a high informative value. 
-In Table \ref{tab: label_count_non_informative} the number of non informative words are listed for the different similarity functions from WordNet. Based on the sum of the non informative words per similarity function and Polyglot embeddings (plg), we ranked the different methods in Table \ref{tab:ranked_non_info}. The top 3 are: res-similarity with preprocessing, lin-similarity with preprocessing and Polyglot embeddings.
+In Table \ref{tab:label_count_non_informative} the number of non informative words are listed for the different similarity functions from WordNet. Based on the sum of the non informative words per similarity function and Polyglot embeddings (plg), we ranked the different methods in Table \ref{tab:ranked_non_info}. The top 3 are: res-similarity with preprocessing, lin-similarity with preprocessing and Polyglot embeddings.
 %%labelcount uninformative words
 \begin{table}[h]
 	\begin{tabular}{c|c|c|c|c|c|c|c}
@@ -503,8 +492,8 @@ In Table \ref{tab: label_count_non_informative} the number of non informative wo
 		plg& 1		&1		 &3	   &6      &4       &3 &18\\
 		& \textbf{7}&\textbf{7}	 &\textbf{4}  &\textbf{7} &\textbf{3} &\textbf{19} & 47\\
 	\end{tabular}
-	\label{tab: label_count_non_informative}
 	\caption[Label counts of non informative words]{Label counts of non informative words with different similarity functions. \textbf{Bold} numbers denote labels including preprocessing.}
+	\label{tab:label_count_non_informative}
 	%fett sind die preprzesseten labels
 \end{table}
 \begin{table}[h]
@@ -524,21 +513,24 @@ In Table \ref{tab: label_count_non_informative} the number of non informative wo
 \label{tab:ranked_non_info}
 \end{table}
 %TODO kling iwie komisch... weglassen? sollte dann eig auch die verteilung für die verschiedenen similarities machen.
-The labels with \ac{csf} does not include any non informative words, because the only the direct hypernyms and not the whole hierarchy of hypernyms was considered. Therefore, we plotted the amount of distinct labels in Figure \ref{extr_csf_count}. This shows, the labels generated with preprocessing on the left side and the labels without on the right. The number of same labels is maximal at 6 or 8, which shows that the labels are discriminative.
+The labels with \ac{csf} do not include any non informative words, because only the direct hypernyms and not the whole hierarchy of hypernyms were considered. Therefore, we plotted the amount of distinct labels in Figure \ref{extr_csf_count}. This shows, the labels generated with preprocessing on the left side and the labels without on the right. The number of same labels is at most 6 or 8, which shows that the labels are discriminative.
 %TODO label counts noch einbringe?
-\begin{figure}[h]
-	\begin{minipage}[t]{0.5\textwidth}
-		\includegraphics[width=7cm, height=7cm]{gfx/ATL_sim/with_scoring_pre.pdf}
+\begin{figure}
+	\begin{minipage}{0.5\textwidth}
+		\includegraphics[width=7cm,height=7.5cm]{gfx/ATL_sim/with_scoring_pre.pdf}
 	\end{minipage}
-	\begin{minipage}[t]{0.5\textwidth}
-		\includegraphics[width=7cm, height=7cm]{gfx/ATL_sim/with_scoring.pdf}
+	\begin{minipage}{0.5\textwidth}
+		\includegraphics[width=7cm,height=7.5cm]{gfx/ATL_sim/with_scoring.pdf}
 	\end{minipage}
 	\caption{Label counts for topics from Generation 1 with \ac{csf}.}
 	\label{extr_csf_count}
 \end{figure}
 %resume: 
 
-Evaluated the intrinsic and extrinsic automatic topic labeling we can conclude, that the intrinsic approach generates meaningful and specific labels not really fitting to the topics and the extrinsic approach partially generates good results, which are comparable with the labels from the domain experts. Nevertheless, finding meaningful and high qualitative labels is not yet automatable. The knowledge and experience a human person has, can not be replaced by a machine.
+Having evaluated the intrinsic and extrinsic automatic topic labeling we can conclude, that the intrinsic approach generates meaningful and specific labels, that do not fit to the topics. The extrinsic approach  generates partially good results, which are comparable with the labels from the domain experts. Nevertheless, finding meaningful and high qualitative labels is not yet automatable. The knowledge and experience a human person, which is required for topic labeling, can not be replaced by a machine.
+
+\cleardoublepage
+
 %Based on our findings we can conclude that finding meaningful and high qualitative labels is not yet automatable. The knowledge and experience a human person has, can not be replaced by a machine.
 %TODO comparison ja oder lieber weglassen?
 %%%tabelle mit hannas

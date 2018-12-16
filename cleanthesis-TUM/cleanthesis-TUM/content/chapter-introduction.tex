@@ -1,14 +1,22 @@
 % !TEX root = ../thesis.tex
 %
 \chapter{Introduction}
-\label{sec:intro}
-This work builts up on a previous project by(zitate). when necessary this project is refereed to as Generation 1
 
-\textit{Generation 1} \citep{Widmer2018}
+%TODO online discussions + topic modelling fehlt
+In \textit{Generation 1} (\cite{Widmer2018}) firstly all data, which were relevant for our domain regarding organic food and products were scraped. Further information can be found in chapter \ref{dataset}. Then topics were generated, with the focus on finding the best topics and showing them to our domain experts. To generate the best topics different parameters for \acf{LDA} and \acf{NMF} were tried out and a method was developed to find the optimal number of topics per dataset. After creating the topics, a part of them was handed over to the domain experts and was labeled by them to evaluate, which datasets are meaningful. Based on the labels, the topic overlap  of every dataset was considered, and it was discovered, that the discussed issues from editorial articles are more similar to the topics identified in forum threads than to the topics of editorial comments and the topics from blogs are most similar to blog comments. Furthermore, the topic labels were compared with the results of a qualitative survey, where people were asked why the buy organic products. The given reasons were also reflected in the topics derived from online discussions. Analogously, to (!!Griffith Scientific texts!!) the development of topics over time was considered, to identify trends.
 
-\section{Research Objectives}
+This thesis builds up on the topics from \textit{Generation 1}, theses were used to apply \acf{ATL} on them. The output of topic models are topics, which are represented with the top 10 words, sorted according the highest probability. It is desired, that the topics belong to a concept. For example from the top 5 words \textit{costs, price, food, product} and \textit{supermarket} it becomes apparent, that it is dealing with \textit{food prices}. Therefore, the label food prices is assigned to the topic. The label assignment has so far been only done by domain experts, which is very time consuming for them. Therefore, different procedures for the automatic allocation of labels to topics were tried out and compared, in order to relieve the domain experts or to support them in their work. This is also necessary if topic modeling is generated on a growing live corpus and new topics can be constantly added, e.g. online discussions, and the actual themes shall be shown.
 
+After \ac{ATL} another main goal of this work is to prove the internal consistency, which means, to analyze how the topics itself and the distribution of topics on documents change when increasing the number of topics. Concretely, it shall be analyzed with different key figures whether the topics are getting specific or general and what specific and general in this context means. Furthermore, it shall be examined if the topics split up and whether this can be proven according to the top 10 words of the topic. All theses analyses shall provide domain experts the overview how topics change when increasing or decreasing the number of topics, so they can assess, which topic model is the most appropriate one for their expected results.
+%\section{Research Objectives}
+%	Wie baue ich darauf auf?
 \section{Thesis structure}
+First the methods, which were used to identify the topics are introduced in Chapter \ref{methodology}. This includes the approaches to represent the content of documents numerically and the algorithms for topic modeling with \acf{LDA} and \acf{NMF} .
 
-\textbf{Chapter \ref{sec:conclusion}} \\[0.2em]
-\blindtext
+In the \ref{dataset}. chapter we introduce the dataset and show how the data were gathered and preprocessed.
+
+In the first half of chapter 4, in \ref{automaticTL}, the possible approaches for \acl{ATL} are described and the results of applying those on our dataset is discussed. Accordingly, in the second half of chapter 4, in \ref{Internal_consistency}, different key figures to measure the Internal consistency are first introduced, applied and then discussed on our dataset.
+
+Chapter \ref{future_work} completes the thesis by providing an outlook for possible future work and summarizes the thesis with the conclusion.
+
+\newpage
