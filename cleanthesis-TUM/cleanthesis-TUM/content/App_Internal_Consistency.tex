@@ -1,17 +1,37 @@
 \chapter{Statistics of Internal Consistency}
 
 \section{Entropy}
-\includegraphics[width=7cm]{gfx/Eval_IC/English_Editorial_Entropy.pdf}
-\includegraphics[width=7cm]{gfx/Eval_IC/German_Editorial_Entropy.pdf}
-\includegraphics[width=7cm]{gfx/Eval_IC/Eng_comments_Entropy.pdf}
-\includegraphics[width=7cm]{gfx/Eval_IC/German_comments_Entropy.pdf}
-\includegraphics[width=7cm]{gfx/Eval_IC/English forums_Entropy.pdf}
+\begin{figure}[t]
+	\begin{minipage}{0.5\textwidth}
+	\centering
+	\includegraphics[width=7cm]{gfx/Eval_IC/English_Editorial_Entropy.pdf}
+	\end{minipage}
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=7cm]{gfx/Eval_IC/German_Editorial_Entropy.pdf}
+	\end{minipage}%
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=7cm]{gfx/Eval_IC/Eng_comments_Entropy.pdf}
+	\end{minipage}
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=7cm]{gfx/Eval_IC/German_comments_Entropy.pdf}
+	\end{minipage}%
+	\centering
+	\begin{minipage}{0.5\textwidth}
+		\includegraphics[width=7cm]{gfx/Eval_IC/English_forums_Entropy.pdf}
+	\end{minipage}
+	\caption[]{Minimal and maximal entropy values for different topic models}
+\end{figure}
+
+
 %TODO german forum fehlt
 
 \section{Alpha}
 \begin{figure}[t]
 	\centering
-	\includegraphics[width=7cm]{gfx/Eval_IC/English forums_Alpha.pdf}\par\medskip
+	\includegraphics[width=7cm]{gfx/Eval_IC/English_forums_Alpha.pdf}\par\medskip
 	\begin{minipage}{0.5\textwidth}
 		\centering
 		\includegraphics[width=7cm]{gfx/Eval_IC/English_Editorial_Alpha.pdf}
@@ -25,21 +45,59 @@
 
 
 \section{Coherence}
+\begin{figure}[t]
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=7cm]{gfx/Eval_IC/English_Editorial_Coherence.pdf}
+	\end{minipage}
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=7cm]{gfx/Eval_IC/German_Editorial_Coherence.pdf}
+	\end{minipage}%
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=7cm]{gfx/Eval_IC/Eng_comments_Coherence.pdf}
+	\end{minipage}
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=7cm]{gfx/Eval_IC/German_comments_Coherence.pdf}
+	\end{minipage}%
+	\centering
+	\begin{minipage}{0.5\textwidth}
+		\includegraphics[width=7cm]{gfx/Eval_IC/English_forums_Coherence.pdf}
+	\end{minipage}
+	\caption[]{Minimal and maximal coherence for different topic models}
+\end{figure}
 
-\includegraphics[width=7cm]{gfx/Eval_IC/English_Editorial_Coherence.pdf}
-\includegraphics[width=7cm]{gfx/Eval_IC/German_Editorial_Coherence.pdf}
-\includegraphics[width=7cm]{gfx/Eval_IC/Eng_comments_Coherence.pdf}
-\includegraphics[width=7cm]{gfx/Eval_IC/German_comments_Coherence.pdf}
-\includegraphics[width=7cm]{gfx/Eval_IC/English forums_Coherence.pdf}
-%TODO german forum fehlt
 
 \section{Documents per topic}
 
-\includegraphics[width=7cm]{gfx/Eval_IC/English_Editorial_Doc_per_topic.pdf}
-\includegraphics[width=7cm]{gfx/Eval_IC/German_Editorial_Doc_per_topic.pdf}
-\includegraphics[width=7cm]{gfx/Eval_IC/English forums_Doc_per_topic.pdf}
-\includegraphics[width=7cm]{gfx/Eval_IC/Eng_comments_Doc_per_topic.pdf}
-\includegraphics[width=7cm]{gfx/Eval_IC/German_comments_Doc_per_topic.pdf}
+\begin{figure}[t]
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=7cm]{gfx/Eval_IC/English_Editorial_Doc_per_topic.pdf}
+	\end{minipage}
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=7cm]{gfx/Eval_IC/German_Editorial_Doc_per_topic.pdf}
+	\end{minipage}%
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=7cm]{gfx/Eval_IC/English_forums_Doc_per_topic.pdf}
+	\end{minipage}
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=7cm]{gfx/Eval_IC/Eng_comments_Doc_per_topic.pdf}
+	\end{minipage}%
+	\centering
+	\begin{minipage}{0.5\textwidth}
+		\includegraphics[width=7cm]{gfx/Eval_IC/German_comments_Doc_per_topic.pdf}
+	\end{minipage}
+	\caption[]{Minimal and maximal documents per topic for different topic models}
+\end{figure}
+
+
+
 %TODO german forum fehlt
 
 \section{Amount of topics per documents}
@@ -109,7 +167,7 @@
 	\begin{minipage}[t]{0.5\textwidth}
 		\subfloat[Correlation for English editorial articles]{
 			\includegraphics[width=7cm]{gfx/Correlation/6Cor_eng.pdf}}
-	\end{minipage}
+	\end{minipage}%
 	\begin{minipage}[t]{0.5\textwidth}
 		\subfloat[Correlation for English comments]{
 			\includegraphics[width=6.5cm]{gfx/Correlation/Englishcomments.pdf}}
@@ -117,12 +175,12 @@
 	\begin{minipage}[t]{0.5\textwidth}
 		\subfloat[Correlation for German comments]{
 			\includegraphics[width=6.5cm]{gfx/Correlation/Germancomments.pdf}}
-	\end{minipage}
-	\begin{minipage}[b]{0.5\textwidth}
+	\end{minipage}%
+	\centering
+	\begin{minipage}[t]{0.5\textwidth}
 		\subfloat[Correlation for English forums]{
 			\includegraphics[width=6.5cm]{gfx/Correlation/Englishforums.pdf}}
 	\end{minipage}
-	%TODO forum german fehlt
 	\caption []{Correlations for different topic models}
 \end{figure}
 
@@ -163,27 +221,27 @@
 \begin{figure}[h]
 \begin{minipage}[t]{0.5\textwidth}
 	\subfloat[Heat map for topic models with 25 and 50 topics]{
-		\includegraphics[width=7cm]{gfx/english-editorial-InternConsistency/js2550.png}}
+		\includegraphics[width=6cm]{gfx/english-editorial-InternConsistency/js2550.png}}
 	\end{minipage}
 	\begin{minipage}[t]{0.5\textwidth}
 	\subfloat[Heat map for topic models with 50 and 75 topics]{
-	\includegraphics[width=7cm]{gfx/english-editorial-InternConsistency/js5075.png}}
+	\includegraphics[width=6cm]{gfx/english-editorial-InternConsistency/js5075.png}}
 	\end{minipage}
 	\begin{minipage}[t]{0.5\textwidth}
 	\subfloat[Heat map for topic models with 25 and 75 topics]{
-	\includegraphics[width=7cm]{gfx/english-editorial-InternConsistency/js2575.png}}
+	\includegraphics[width=6cm]{gfx/english-editorial-InternConsistency/js2575.png}}
 	\end{minipage}
 	\begin{minipage}[t]{0.5\textwidth}
 	\subfloat[Heat map for topic models with 80 and 130 topics]{
-	\includegraphics[width=7cm]{gfx/english-editorial-InternConsistency/jh80130.png}}
+	\includegraphics[width=6cm]{gfx/english-editorial-InternConsistency/jh80130.png}}
 	\end{minipage}
 	\begin{minipage}[t]{0.5\textwidth}
 	\subfloat[Heat map for topic models with 80 and 180 topics]{
-	\includegraphics[width=7cm]{gfx/english-editorial-InternConsistency/js80180.png}}
+	\includegraphics[width=6cm]{gfx/english-editorial-InternConsistency/js80180.png}}
 	\end{minipage}
 	\begin{minipage}[t]{0.5\textwidth}
 	\subfloat[Heat map for the topic models with 130 and 180 topics]{
-	\includegraphics[width=7cm]{gfx/english-editorial-InternConsistency/js130180.png}}
+	\includegraphics[width=6cm]{gfx/english-editorial-InternConsistency/js130180.png}}
 	\end{minipage}
 	\caption[]{Heat maps with similarities inter two topic models for English editorial articles}
 	\label{}
@@ -200,7 +258,7 @@
 	\end{minipage}
 	\begin{minipage}[t]{0.5\textwidth}
 		\subfloat[Heat map for the topic model with 75 topics]{
-			\includegraphics[width=7cm]{gfx/english-editorial-InternConsistency/j-shannon75-h.png}}
+			\includegraphics[width=6cm]{gfx/english-editorial-InternConsistency/j-shannon75-h.png}}
 	\end{minipage}
 	\begin{minipage}[t]{0.5\textwidth}
 		\subfloat[Heat map for the topic model with 80 topics]{
@@ -221,27 +279,27 @@
 \begin{figure}
 	\begin{minipage}[t]{0.5\textwidth}
 		\subfloat[Heat map for topic models with 25 and 50 topics]{
-			\includegraphics[width=7cm]{gfx/JensenSH/js5025.png}}
+			\includegraphics[width=6cm]{gfx/JensenSH/js5025.png}}
 	\end{minipage}
 	\begin{minipage}[t]{0.5\textwidth}
 		\subfloat[Heat map for topic models with 25 and 75 topics]{
-			\includegraphics[width=7cm]{gfx/JensenSH/js2575.png}}
+			\includegraphics[width=6cm]{gfx/JensenSH/js2575.png}}
 	\end{minipage}
 	\begin{minipage}[t]{0.5\textwidth}
 		\subfloat[Heat map for topic models with 50 and 75 topics]{
-			\includegraphics[width=7cm]{gfx/JensenSH/js5075.png}}
+			\includegraphics[width=6cm]{gfx/JensenSH/js5075.png}}
 	\end{minipage}
 	\begin{minipage}[t]{0.5\textwidth}
 		\subfloat[Heat map for topic models with 140 and 190 topics]{
-			\includegraphics[width=7cm]{gfx/JensenSH/js140190.png}}
+			\includegraphics[width=6cm]{gfx/JensenSH/js140190.png}}
 	\end{minipage}
 	\begin{minipage}[t]{0.5\textwidth}
 		\subfloat[Heat map for topic models with 140 and 240 topics]{
-			\includegraphics[width=7cm]{gfx/JensenSH/js140240.png}}
+			\includegraphics[width=6cm]{gfx/JensenSH/js140240.png}}
 	\end{minipage}
 	\begin{minipage}[t]{0.5\textwidth}
 		\subfloat[Heat map for the topic models with 190 and 240 topics]{
-			\includegraphics[width=7cm]{gfx/JensenSH/js190240.png}}
+			\includegraphics[width=6cm]{gfx/JensenSH/js190240.png}}
 	\end{minipage}
 	\caption[]{Heat maps with similarities inter two topic models for German editorial articles}
 	\label{heatmap:inter_ger}

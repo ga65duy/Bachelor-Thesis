@@ -3,7 +3,7 @@
 % **************************************************
 \documentclass[%
     paper=A4,               % paper size --> A4 is default in Germany
-    twoside=false,           % onesite or twoside printing
+    twoside=true,           % onesite or twoside printing
     openright,              % doublepage cleaning ends up right side
     parskip=full,           % spacing value / method for paragraphs
     chapterprefix=true,     % prefix for chapter marks
@@ -65,11 +65,9 @@
 \pagestyle{maincontentstyle} 	% fancy header and footer
 
 \input{content/acronym}
-\linenumbers
 \input{content/chapter-introduction}
 \input{content/Theroy}
 \input{content/dataset}
-\input{content/topic_ranking}
 \input{content/Automatic_Topic_Labeling}
 \input{content/intern_consistency}
 \input{content/future_work_and_conclusion}
@@ -80,8 +78,7 @@
 % --------------------------
 \appendix\cleardoublepage
 \input{content/chapter-appendix} 
-\input{content/App_Internal_Consistency}
-\input{content/App_ATL}      % INCLUDE: appendix
+\input{content/App_Internal_Consistency}     % INCLUDE: appendix
 %
 {%
 \setstretch{1.1}

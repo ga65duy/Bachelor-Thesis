@@ -1,19 +1,4 @@
-\begin{tikzpicture}
-		\coordinate (A) at (0:0);
-		\coordinate (B) at (0:2);
-		\coordinate (C) at (60:2);
-		
-		\node[below left] at (A) {a};
-		\node[below right] at (B) {b};
-		\node[above] at (C) {c};
-		
-		\draw [thick] (A) -- (B) -- (C) -- cycle;
-		
-  		\node at (barycentric cs:A=0.33,B=0.33,C=0.33) {\small \textcolor{red}{x}} ;
-  		\node at (barycentric cs:A=0.6,B=0.1,C=0.4) {\small \textcolor{blue}{x}} ;
-  		\node at (barycentric cs:A=0.1,B=0.1,C=0.8) {\small \textcolor{yellow}{x}} ;
-		\end{tikzpicture}
-		\quad
+
 		\begin{tikzpicture}
 		\begin{axis}[
 		width = 3cm,

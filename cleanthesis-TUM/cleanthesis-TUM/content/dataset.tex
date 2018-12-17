@@ -17,7 +17,6 @@ The final collection stored in a JSON schema and the list of all sources and the
 \label{data:preprocessing}
 For applying further \ac{NLP} tasks, the extracted dataset was transformed by using several pre-processing tasks: First, the texts were tokenized and lowercased. Then all common words including numbers and punctuations were removed and Emails and Url`s were replaced by <EMAIL> and <URL> tags. Second, the remaining tokens were lemmatized, so that the inflections of words were replaced by their basic form. Third, the texts were examined for collocations, which are co-occuring words like \textit{Stiftung Warentest} or \textit{Whole Foods},  with a Gensim library \footnote{https://radimrehurek.com/gensim/index.html}. For the lemmatization and tokenization the Spacy library \footnote{https://spacy.io} was used.
 Additionally, in this project \ac{POS}-Tagging was applied to the texts, which is a process marking up the words to a particular part of speech, to facilitate the \ac{ATL} in chapter \ref{automaticTL}. 
-%TODO haben wir collocations für postags entfernt?
 
 \section{Final Datasets}
 Before reporting the datasets itself, the definition of text types will be described, which were introduced because of the different content and language style. 
@@ -66,7 +65,6 @@ The first dataset \label{chris:daten} consists of editorial articles, editorial 
 \section{Topic Generation}
 The complete dataset not only includes the texts but also topics, that were identified as part of \textit{Generation 1}. These topics were generated separately by language and text type. Since we merged comments underneath editorial articles and forums, we generated new topics based on the same parameter and the same approach to select the number of topics.
 Generating qualitative topics depends on the hyper parameters $\alpha$ and $\beta$ for \ac{LDA} and the topic number for \ac{LDA} and \ac{NMF}. The domain and the documents influence the optimal values for the hyper parameters. Therefore, in \textit{Generation 1}, the $\alpha$ and  $\beta$ were determined by analyzing the topic coherence and the perplexity of the topics. The asymmetric $\alpha$ and symmetric $\beta$ = 0.01 were considered as the best values. These were used to generate the previous topics and the new ones for summarized comments.
-%TODO topic coherence und perplexity erklären
 Obtaining the best topic number for each dataset multiple Topic Models were trained for a range of different number of topics with \ac{LDA} and \ac{NMF}. The following steps describe the process to estimate the optimal number of topics for a language, dataset and algorithm e.g. English Comments with \ac{NMF}:
 \begin{enumerate}
 	\item For every Topic Model with different topic numbers a plot was generated, see Figure \ref{fig:mean}.
@@ -107,7 +105,7 @@ After finding the appropriate topic number, the Topic Models generated with \ac{
 			\end{tabular}
 		\end{minipage}
 		\hfill
-		%TODO welche Kommentare nmf oder lda wurden gewählt?
+
 		\begin{minipage}[b]{0.5\textwidth}
 			\begin{tabular}[b]{lccc}
 				\cmidrule{2-4}  & \multicolumn{2}{c}{Editorials} & \multirow{2}{*}{Forums} \\

@@ -1,31 +1,15 @@
 \newpage
 \section{Internal consistency}
 \label{Internal_consistency}
-%entr: topic term: hoher entropy -> topic allg  sonst spezifisch
-%doc topic: hoh entr: topic ist in fast allen docs vertreten, sonst in wenigen
-
-%sind stabil und werden über die Stichproben hinweg wieder auftreten und welche Themen für eine bestimmte Lösung eigenständig sind.
-%
 When generating a topic model with \ac{LDA} or \ac{NMF} the number of topics has to be manually set. This number is critical and has an effect on the quality and the interpretability of topics. We want to provide the domain experts an overview how topics change when increasing or decreasing the topic number. So they can assess, which topic model is the appropriate one for their further research. 
-
-%es gibt verscheidene kennzahlen, um kuali der topics zu beurteilen: dazu zählen, ob in doc viele /wenige  topics, ob topics dominieren, ob bestimmte topics nur in bestimmten. bzg auf topic und doc und topic term, perplexitiy, coherence, ob topics interpretierbar. 
-%bisher verwendete maße, perplexity und coherence, nur auf topic term matrix.
-%
-%meiten nur topic term matrix. 
-%möchten betrachten, wie die topics sich auf aufteilung der dokumente.
 
 To analyze the quality of a topic model we differentiate between the intra topic model and inter topic model approach. The intra topic approach compares all topics of one topic model with each other. This way we can study, which topics are similar to each other or which topics appear together in the same document. When applying the inter topic approach, we compare the topics from topic model A to a second different topic model B. The second topic model differs from the first by the number of topics. By comparing the two models we can study what effect the increasing topic number has on the quality of the topics. With both approaches we want to examine questions such as: Do the topics get more specific, more general, do they split up or do they stay the same and only new topics are added? Are there a few topics, which are dominating in a document or are few topics assigned to a document? How does the topic assignment change across different topic models? Indicates a higher topic number a better clustering of the documents?
 
-%TODO related work im fließtext
 Both, \ac{LDA} and \ac{NMF} return a document topic matrix $\theta$, which describes to what extend a topic appears in a document and a topic term matrix $\phi$, which describes to what extend a term appears in a topic. Different key figures can be derived from these matrices to judge the quality and to examine the changes in topics.
 Entropy and Jensen Shannon divergence can be used on the document topic matrix as well on the topic term matrix. The coherence measure relies solely on the topic term matrix and alpha $\alpha$  can only be applied on topic models, that were generated with \ac{LDA}.
 
-%There are various key figures for judging the quality and examining the changes of topics. These include mutual information(\cite{Sethi2012}), variance of information (\cite{Melia2007}), perplexity (\cite{Blei2003}), the Jensen Shannon divergence, alpha, entropy, coherence etc.
-%TODO folgenden abschnitt hier erwähnen oder erst bei evaluation?
-%TODO überarbeiten ist nicht korrekt mit den zahlen
-For our evaluation we generated for every dataset topic models with 25, 50, 75 topics and topic models with 50 topics over and under the topics number from \textit{Generation 1}. The different key figures were applied on these newly generated topic models and the topic models from \textit{Generation 1}.In the following the dataset for \text{German editorial articles} with 25, 50, 75, 140, 190 and 240 topics per topic model were analyzed.
+For our evaluation we generated topic models with 25, 50, 75 topics and topic models with 50 topics over and under the topics number from \textit{Generation 1}. The different key figures were applied on these newly generated topic models and the topic models from \textit{Generation 1}.In the following the dataset for \text{German editorial articles} with 25, 50, 75, 140, 190 and 240 topics per topic model were analyzed.
 
-%For our evaluation we generated for every dataset topic models with 25, 50 and 75 topics. Additionally, the topic models from \textit{Generation 1} were taken and topic models with 50 topics under and over the given topic number per dataset were generated. Based on these topic models we applied the different key figures including entropy, alpha for topic models generated with \ac{LDA}, the document topic matrix $\theta$, the topic term matrix $\phi$, topic coherence and the Jensen Shannon divergence. In the following the dataset \textit{German editorial articles} with 25, 50, 75 and 140, 190, 240 topics per topic model were analyzed.
 \subsection{Theta $\theta$}
 \begin{table}[h]
 	\centering
@@ -69,7 +53,6 @@ When applied on the document topic matrix $\theta$ the rules can be applied anal
 E = -\sum(p * log(p))
 \end{equation}
 where $p$ is the probability of a term in a topic, which was taken from the topic term matrix $\phi$ or the probability of a topic in a document, taken from the document topic matrix $\theta$. 
-%TODO topic term sum pro topic = 1? laut print 0.99 1.00043....
 In Figure \ref{entropy_dist} the entropy values for each topic for German editorial articles with 190 topics are shown. The entropy values are sorted descending. The topic term matrix for Topic 13, which has the lowest entropy value, is considered in Figure \ref{entropy_min}. The x-axis represents each termid of the corpus. The y-axis represents the probability of the terms in a topic. In contrast to Topic 13, Topic 100 with the highest entropy value is shown in Figure \ref{entropy_max}. One can see, that Topic 13 consists mainly of the term id 4916 and the other term ids hardly occur, while in Topic 100 the term ids are nearly evenly spread.
 \begin{figure}[t]
 	\centering
@@ -113,9 +96,7 @@ The \ac{JS} divergence  is a symmetric extension of the \ac{KL} divergence. If t
 In our implementation we subtracted the value from the \ac{JS} divergence from 1 to get the similarity between two probability distributions, so that the value 1 is assigned when two probability distributions are identical and the value 0 when they are completely dissimilar. 
 
 \subsection{Evaluation}
-%TODO den folgenden abschnitt hier oder in einleitung?stimmt nicht mancham auch nur 50 und 50 drunter
 The evaluation was conducted on \textit{German} and \textit{English editorial articles}. For both datasets we studied topic model with 50 topics over and under the optimal topic number from \textit{Generation 1} and further generated topic models with 25, 50 and  75 topics. Both datasets were analyzed by applying each key figure as explained above on each topic model. The results per key figure and per topic model were then compared with each other.
-%TODO verlauf der variablen als graph hinzufügen? PROBLEM: habs auf allen daten, aber unterschiedliche ergebnisse.
 \subsubsection{Entropy}
 %%%German
 \begin{figure}
@@ -167,8 +148,6 @@ The entropy values for \textit{German editorial articles} (Figure \ref{entr_germ
 
 For \textit{English editorial articles} (Figure \ref{entr_english}) the maximal entropy value is decreasing up to the topic model with 80 topics. Then the values is rising and for the topic models with 130 and 180 topics the entropy stays the same. For the minimal entropy the values are getting continuously smaller. So the span between the maximal and the minimal entropy value is increasing. This means, that the more topics are generated the more topics get more general and more specific. 
 
-%TODO resume
-
 \subsubsection{Alpha}
 %%%german editorial
 \begin{figure}
@@ -215,12 +194,9 @@ For \textit{English editorial articles} (Figure \ref{entr_english}) the maximal 
 	\label{alpha_eng}
 \end{figure}
 In Figure \ref{alpha_ger} the alpha values for \textit{German editorial articles} are shown. The maximal alpha values as well the minimal alpha values are decreasing. This indicates, that the documents are described by fewer topics with a higher probability. But alpha does not say anything about the topic quality, so the few topics, which are assigned to the document can be rather general or specific. Therefore, we calculated the entropy for the topic with the maximal alpha value 0.186 from the topic model with 25 topics and the minimal alpha value 0.002 from the topic model with 240 topics. We got the entropy value of 7.08 for the topic model with 25 topics and the entropy value of 6.28 for the topic model with 240 topics. So the document with the highest alpha value consists out of either general topics and the document with the lowest alpha value out of specific ones. 
-%TODO
-(!!!stimmt nur für die beiden, die entropy über alle alpha values sind sprunghaft...!!!)
 
 The minimal alpha values for \textit{English editorial articles} (Figure \ref{alpha_eng}) are continuously declining up to the topic model with 130 topics. Then the alpha value is staying the same. The maximal alpha values are volatile, so there is no prediction possible, if the values will raise or fall again.
 
-%TODO document topic matrix anschauen. 
 \subsubsection{Coherence}
 %% German
 \begin{figure}
@@ -322,7 +298,6 @@ First, we start with the number of documents a certain topic covers over 10\%.
 In Figure \ref{eval:amount doc_per_topic_ger} one can see, that the maximal and minimal number of documents is decreasing when increasing the topic number for \textit{German editorial articles}. This indicated, that the topics are so specific, that they do not appear in any document with a probability higher then the threshold.
 
 For \textit{English editorial articles} (Figure \ref{eval:amount doc_per_topic_eng}) the maximal number of documents is volatile, whereas the minimal numbers of documents are decreasing and there even seem to be topics, that are not assigned to any document, because they do not cover the meaning of the document over the threshold. 
-%TODO(!!!evtl auf die zahlen an sich eingehn -> mehr docs bei german?!!!)
 
 \begin{figure}
 	
@@ -380,9 +355,8 @@ For the \textit{German editorial articles} in Figure \ref{top_per_doc_ger} it ca
 
 
 \subsubsection{Jensen Shannon divergence}
-%TODO
+
 The \ac{JS} divergence was used to calculate the similarity of topics based on the topic term matrix in a topic model and across topic models. The similarities were then visualized as heat maps. The dark red colored boxes express high similarity, while the brighter boxes express a smaller similarity.  
-%TODO heatmaps nur in anhang bzw welche hier rein?
 The topic models form \textit{German editorial articles} with 25, 50 and 70 topics were evaluated manually. The highest similarities (dark red) with the values of 0.63, 0.65, and 0.65 for the topics intra a topic model were taken, and the topics were compared with each other in Table \ref{intra_topic}. The same words form the top 10 terms of a topic were marked in bold. In Table \ref{inter_topic} the similarities of the topics were calculated across different topic models with 25/50, 50/57 and 50/75 topics. The values for the similarity were 0.9, 0.87 and 0.94. One can see, that the number of common words and the calculated similarity, is much higher in the inter topic model evaluation. This means, that the topics inter a topic model are not as similar to each other as the topics developing across topic models. At least this is not recognizable by the top 10 words of a topic. The heat maps for the inter topic model and intra topic model evaluation can be seen in Figure \ref{heatmap:inter_ger} and \ref{heatmap:intra_ger}.
 %TODO heatmaps in anhang
 
@@ -485,8 +459,6 @@ Within the different topic models the topics are hardly similar. This is a good 
 \end{figure}
 
 
-%TODO in anhang schieben
-
 
 \subsubsection{Correlation}
 Calculating the correlation between every key figure, the relationship over the different topic models is analyzed by using the Pearson correlation. It is a measure of the linear correlation between two variables $X$ and $Y$ and can assume values between 1 an -1, where 1 represents a total positive linear correlation, 0 no linear correlation and -1 represents a total negative linear correlation. 
@@ -516,36 +488,10 @@ if the topic is strongly represented in a document or if it is easily interpreta
 \label{Corr}
 \end{figure}
 
-% vergleiche parameter, in tabelle, auch pearson similarity. zeigen welche werte correlieren.
+The analysis of the different key figures on the two datasets has shown that no key figure on its own is enough to determine the quality or the optimal topic number. When considering multiple key figures, it is possible to compare different topic models based on how generic or specific the topics are (entropy) or how the topics are distributed across the corpus (alpha). It is not possible, however, to compare topic models of different datasets. Each dataset has its own characteristics such as the number of documents, the average length of the documents or how specific the topics are covered. These differences make it impossible to compare topic models trained on different datasets. 
+
+%resume: besten kriterien lassen sich nicht so leich bestimmen. da es vom datensatz abhägen kann, aus wie vielen dokumenten besteht der corpus, wie lang sind diese documente. und wie spezifisch sind die themen, die in einem document behandelt werden.
 
 
-% jenson shannon to calculate the distance
-%plot 1-js
-
-%generated heatmap, 
-%interpret: more read the more similar, if not so similar topics more differnt.
-
-%compare entropy with alpha value
-%Annahme: 
-%hohe entropy bei topic term -> hohe bei doc topic 
-%dh, topic enthält die 
-%\begin{figure}[h]
-%	\begin{minipage}[t]{0.5\textwidth}
-%		\includegraphics[width=7cm]{gfx/Correlation/German_editorial_articles_with_140_topics.pdf}
-%	\end{minipage}
-%	\begin{minipage}[t]{0.5\textwidth}
-%		\includegraphics[width=7cm]{gfx/Correlation/German_editorial_articles_with_190_topics.pdf}
-%	\end{minipage}
-%	\begin{minipage}[t]{0.5\textwidth}
-%		\includegraphics[width=7cm]{gfx/Correlation/German_editorial_articles_with_240_topics.pdf}
-%	\end{minipage}
-%	\caption{ea}[Correlation between alpha and entropy for German editorial articles]
-%	\label{correlation}
-%\end{figure}
-
-resume: besten kriterien lassen sich nicht so leich bestimmen. da es vom datensatz abhägen kann, aus wie vielen dokumenten besteht der corpus, wie lang sind diese documente. und wie spezifisch sind die themen, die in einem document behandelt werden.
-
-
-%TODO: in anhang schieben.
 
 \newpage

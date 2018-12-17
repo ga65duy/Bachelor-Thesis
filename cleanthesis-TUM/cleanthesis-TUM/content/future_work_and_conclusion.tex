@@ -2,21 +2,14 @@
 \label{future_work}
 
 \section{Future work}
-- Mai bessere Kl oder andere funktion generieren, sodass die labels besser zu den topics passen
+As this thesis covered multiple areas in the field of topic modeling, the recommendations for possible future improvements are also divided into two sections. We have applied the intrinsic automatic topic labeling technique of \cite{Mei2007}. The authors propose several possible improvements that would also improve the labeling on our data. Foremost, a different method for generating canidate labels and matching these to topics is necessary. The extrinsic labeling approach relied on WordNet and could thus only be applied on the English data. The methods could be extended to support German data, for example by incorporating GermaNet or other lexical sources. Lastly, it would be interesting to generate labels for hierarchical topic models.
 
-- haben topic labeling mit ontology nur auf englischsprachigen topics angewandt, man könnte versuchen, dies  auch mit Thesaurus db auf den deutschen topics anzupassen.
-
-- ein verfahren für topic labeling, dass man unabhängig von der sprache bzw vom algorithmus lda bzw nmf und weitere, verwenden kann. 
-
-Intern consistency: compare topic models based on changing other parameters such as alpha, beta, for lda, nmf only topic number as übergabeparameter
+In this thesis the internal consistency of topic models was studied to analyze the quality of the topics and what effect the chosen number of topics has. In future revisions also the effect of changing other parameters such as the priors $\alpha$ and $\beta$ for LDA on the quality of the modeling should be considered.
 
 \section{Conclusion}
 In this thesis two main topics were covered: How can we label topics automatically and how can we measure the internal consistency of topic modeling. 
 
-To answer the fist question the intrinsic and extrinsic automatic topic labeling was introduced an evaluated on English and German editorial articles. The evaluation showed, that the intrinsic approach produced meaningful labels on their own, but theses did not fit to the topics. The extrinsic approach was more successful,
+To answer the fist question the intrinsic and extrinsic automatic topic labeling was introduced an evaluated on English and German editorial articles. The evaluation showed, that the intrinsic approach produced meaningful labels on their own, but theses did not fit to the topics. The extrinsic approach was more successful.
 On average with this method labels were generated, which were fitting more to the topics and some of the automatic labels even matched with the labels, that were submitted by the domain experts. 
 
-To answer the second question, several key figures were introduced to measure the internal consistency of topic models with a different number of topic numbers. All key figures were applied on our dataset. 
-
-...
-No of the key figures is able to answer the question. Further we also did correlations....
+To answer the second question, several key figures were introduced to measure the internal consistency of topic models with a different number of topic numbers. All key figures were applied on our datasets. It was determined that a single key figure is not enough to specify the number of topics or the quality of the topics. When comparing topic models that were trained on the same dataset, however, the key figures can be used to evaluate which model has more generic or specific topics and how the topics change when varying the number of topics.
