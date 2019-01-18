@@ -66,15 +66,15 @@ Topic Models are based on the assumption that a document is composed of multiple
 Just as documents are distributions over all topics, topics are distributions over all words in a document collection. Every word of the collection is present in every topic, however, with varying probabilities. Sorting the terms of a topic by their probability reveals a semantically meaningful interpretation.
 
 \subsection{Latent Dirichlet Allocation}
-Currently, the most used method for topic modeling is \acl{LDA}, which was introduced by \cite{Blei2003}. \ac{LDA} is a generative model, that describes how the documents are generated from existing topics. By applying inference it is possible to reverse the process and use \ac{LDA} to derive the topics from the document collection. Further, \\ac{LDA} is also a probabilistic model which means that the resulting topics can be seen as a probability distribution.
+Currently, the most used method for topic modeling is \acl{LDA}, which was introduced by \cite{Blei2003}. \ac{LDA} is a generative model, that describes how the documents are generated from existing topics. By applying inference it is possible to reverse the process and use \ac{LDA} to derive the topics from the document collection. Further, \ac{LDA} is also a probabilistic model which means that the resulting topics can be seen as a probability distribution.
 
-The research on topic models was started by \cite{Deerwester1990} with their introduction of Latent Semantic Analysis (LSA). LSA was used to solve the issues of polysemy and synonymy when performing queries for information retrieval. With probabilistic LSA (pLSA) \cite{Hofmann1999} provided a probabilistic formulation of LSA. \ac{LDA} is an extension of pLSA to be able to model unseen documents. In pLSA the topic proportions for every document need to be known, which makes it unable to model documents outside the training set. In LDA the topic proportions for every document are derived from a Dirichlet distribution, thus enabling it to generalize to documents outside the training collection.
+The research on topic models was started by \cite{Deerwester1990} with their introduction of \ac{LSA}. \ac{LSA} was used to solve the issues of polysemy and synonymy when performing queries for information retrieval. With probabilistic \ac{LSA} (pLSA) \cite{Hofmann1999} provided a probabilistic formulation of \ac{LSA}. \ac{LDA} is an extension of pLSA to be able to model unseen documents. In pLSA the topic proportions for every document need to be known, which makes it unable to model documents outside the training set. In \ac{LDA} the topic proportions for every document are derived from a Dirichlet distribution, thus enabling it to generalize to documents outside the training collection.
 
-After the successful introduction to analyze large document collections, LDA was also applied in other domains such as computer vision to classify \citep{Fei-Fei2005} and build hierarchies of images \citep{Li2010}. In fact, the method was independently discovered by \cite{Pritchard2000} in their field of evolutionary biology to study population genetics. For the interested reader, \cite{Jelodar2017} presents a literature study on extensions of LDA and applications to various datasets.
+After the successful introduction to analyze large document collections, \ac{LDA} was also applied in other domains such as computer vision to classify \citep{Fei-Fei2005} and build hierarchies of images \citep{Li2010}. In fact, the method was independently discovered by \cite{Pritchard2000} in their field of evolutionary biology to study population genetics. For the interested reader, \cite{Jelodar2017} presents a literature study on extensions of \ac{LDA} and applications to various datasets.
 
-As described above LDA assumes a generative process how the documents of a corpus arose from existing topics. We first describe the generative process before explaining how it can be reversed to derive topics from existing documents.
+As described above \ac{LDA} assumes a generative process how the documents of a corpus arose from existing topics. We first describe the generative process before explaining how it can be reversed to derive topics from existing documents.
 
-LDA draws the per-document topic distribution and the topics themselves from a  Dirichlet distribution. Therefore, before explaining LDA the Dirichlet distribution is introduced. 
+\ac{LDA} draws the per-document topic distribution and the topics themselves from a  Dirichlet distribution. Therefore, before explaining \ac{LDA} the Dirichlet distribution is introduced. 
 
 The Dirichlet distribution can be seen as a distribution over distributions. When sampling from a k-dimensional Dirichlet distribution one receives a discrete distribution over k elements. This is visualized in Figure \ref{fig:dirichlet1}. Each distribution represents a draw from a 3-dimensional Dirichlet distribution.
 
@@ -87,8 +87,8 @@ Further, the Dirichlet distribution can be parametrized by $\alpha$. The paramet
 	\label{fig:dirichlet1}	
 \end{figure}
 
-Figure \ref{fig:dgmlda} represents LDA as a graphical model. The grey nodes indicate observed variables, in this case the words $w$ of the documents. All white nodes are hidden variables that have to be derived. In topic modeling the hidden variables are the topic assignment $z_{w,d}$ of each word position $n$ in document $d$, the topic distribution $\theta_d$ for document $d$ and the word distribution $\phi_z$ for topic $z$. $\alpha$ and $\beta$ are hyper- parameters for the Dirichlet distribution on the per-document topic distribution and per-topic word distribution respectively.
-With the introduced notation the generative process underlying LDA can be described as follows:
+Figure \ref{fig:dgmlda} represents \ac{LDA} as a graphical model. The grey nodes indicate observed variables, in this case the words $w$ of the documents. All white nodes are hidden variables that have to be derived. In topic modeling the hidden variables are the topic assignment $z_{w,d}$ of each word position $n$ in document $d$, the topic distribution $\theta_d$ for document $d$ and the word distribution $\phi_z$ for topic $z$. $\alpha$ and $\beta$ are hyper- parameters for the Dirichlet distribution on the per-document topic distribution and per-topic word distribution respectively.
+With the introduced notation the generative process underlying \ac{LDA} can be described as follows:
 
 \begin{itemize}
 	\item From a Dirichlet distribution parametrized by $\alpha$ draw a multinomial distribution $\theta_d$ representing the topic proportions of document $d$. 
@@ -106,7 +106,7 @@ This fraction, however, is intractable to compute. Therefore, several approaches
 
 \begin{figure}
 	\input{tikzpictures/graphical-model-lda}
-	\caption[Graphical model of LDA]{Graphical model of LDA. Adapted from \cite{Widmer2018}}
+	\caption[Graphical model of \ac{LDA}]{Graphical model of \ac{LSA}. Adapted from \cite{Widmer2018}}
 	\label{fig:dgmlda}
 \end{figure}
 

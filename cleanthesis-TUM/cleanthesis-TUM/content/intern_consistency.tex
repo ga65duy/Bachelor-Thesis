@@ -31,7 +31,7 @@ Alpha $\alpha$ is a prior parameter for \ac{LDA}, that describes the sparsity of
 In Figure \ref{alpha_dist} the alpha values for each topic for German editorial articles with 190 topics are shown. The document distribution for Topic 30, which has the lowest alpha value, is considered in Figure \ref{alpha_min}. The x-axis represents the document ids, standing for the documents, which build the corpus. The y-axis represents the percentage of a document that is covered by the topic. In contrast to Topic 30, Topic 111 with the highest alpha value is shown in Figure \ref{alpha_max}. One can see, that Topic 30 covers only a few documents, while Topic 111 is more evenly spread over all documents.
 
 %%beispiel für alpha
-\begin{figure}[t]
+\begin{figure}[h]
 	\centering
 	\subfloat[Plotted alphas for German editorial articles]{\label{alpha_dist}\includegraphics[width=8cm]{gfx/Alphas/German_editorial_articles_with_190_topics_100.pdf}}\par\medskip
 	\begin{minipage}{0.5\textwidth}
@@ -46,6 +46,7 @@ In Figure \ref{alpha_dist} the alpha values for each topic for German editorial 
 	\label{alpha_example}
 \end{figure}
 
+\newpage
 \subsection{Entropy}
 Entropy was used to identify specific and general topics. It can be applied on the topic term matrix $\phi$ and the document topic matrix $\theta$. When applied on the topic term matrix, a high entropy value indicates that the topic is rather general. This means, that all terms have a similar probability to appear in the topic. A low entropy indicates, that the topic is specific i.r. only a few words have a high probability to appear in the topic. This difference is illustrated in Figure  \ref{entropy_min} and in Figure \ref{entropy_max}. \newline
 When applied on the document topic matrix $\theta$ the rules can be applied analogously. A high entropy value indicates, that the topic is rather general. This means, that all topics have a similar probability to appear in a document. A low entropy value indicates, that the topic is specific i.e. only a few topics have a high probability to appear in a document. Entropy is calculated as follows (\cite{Sethi2012}):
@@ -54,7 +55,7 @@ E = -\sum(p * log(p))
 \end{equation}
 where $p$ is the probability of a term in a topic, which was taken from the topic term matrix $\phi$ or the probability of a topic in a document, taken from the document topic matrix $\theta$. 
 In Figure \ref{entropy_dist} the entropy values for each topic for German editorial articles with 190 topics are shown. The entropy values are sorted descending. The topic term matrix for Topic 13, which has the lowest entropy value, is considered in Figure \ref{entropy_min}. The x-axis represents each termid of the corpus. The y-axis represents the probability of the terms in a topic. In contrast to Topic 13, Topic 100 with the highest entropy value is shown in Figure \ref{entropy_max}. One can see, that Topic 13 consists mainly of the term id 4916 and the other term ids hardly occur, while in Topic 100 the term ids are nearly evenly spread.
-\begin{figure}[t]
+\begin{figure}[h]
 	\centering
 	\subfloat[Plotted entropy for German editorial articles]{\label{entropy_dist}\includegraphics[width=7cm]{gfx/Entropy/German_editorial_articles_with_190_topics100.pdf}}\par\medskip
 	\begin{minipage}{0.5\textwidth}
@@ -97,21 +98,27 @@ In our implementation we subtracted the value from the \ac{JS} divergence from 1
 
 \subsection{Evaluation}
 The evaluation was conducted on \textit{German} and \textit{English editorial articles}. For both datasets we studied topic model with 50 topics over and under the optimal topic number from \textit{Generation 1} and further generated topic models with 25, 50 and  75 topics. Both datasets were analyzed by applying each key figure as explained above on each topic model. The results per key figure and per topic model were then compared with each other.
+
 \subsubsection{Entropy}
-%%%German
-\begin{figure}
+
+The Figures \ref{entr_german} and \ref{entr_english} show the change of entropy for \textit{German} respectively \textit{English editorial articles}. The table on the left denotes the minimal and maximal entropy given the number of topics. On the right the maximal entropy values (blue line) and the minimal entropy values (orange line) are plotted. This structure will repeat in the different key figures.
+
+The entropy values for \textit{German editorial articles} (Figure \ref{entr_german}) are decreasing when increasing the number of topics. For the topic model with 240 topics the entropy values starts increasing again. This means, that the topics with a higher topic number are getting more specific until a certain point, when the entropy value is increasing again. This could mean, that the optimal topic number, to generate topics, which are specific, is at the point, when the entropy value has reached its minimum.
+
+For \textit{English editorial articles} (Figure \ref{entr_english}) the maximal entropy value is decreasing up to the topic model with 80 topics. Then the values is rising and for the topic models with 130 and 180 topics the entropy stays the same. For the minimal entropy the values are getting continuously smaller. So the span between the maximal and the minimal entropy value is increasing. This means, that the more topics are generated the more topics get more general and more specific. 
+\begin{figure}[h]
 	\begin{minipage}{0.5\textwidth}
 		\centering
-	\begin{tabular}[t]{c|cc}
-		&max value & min value\\
-		\hline
-		25 topics&7.08&5.42\\
-		50 topics&	6.82&4.67\\
-		75 topics&	6.79&4.40\\
-		140 topics&	6.60&3.99\\
-		190 topics &6.52&2.78\\
-		240 topics&	6.57&3.09\\
-	\end{tabular}
+		\begin{tabular}[t]{c|cc}
+			&max value & min value\\
+			\hline
+			25 topics&7.08&5.42\\
+			50 topics&	6.82&4.67\\
+			75 topics&	6.79&4.40\\
+			140 topics&	6.60&3.99\\
+			190 topics &6.52&2.78\\
+			240 topics&	6.57&3.09\\
+		\end{tabular}
 	\end{minipage}%
 	\begin{minipage}{0.5\textwidth}
 		\centering
@@ -120,8 +127,8 @@ The evaluation was conducted on \textit{German} and \textit{English editorial ar
 	\caption{Maximal and minimal entropy per topic model for German editorial articles.}
 	\label{entr_german}
 \end{figure}
-%%%English
-\begin{figure}
+
+\begin{figure}[h]
 	\begin{minipage}{0.5\textwidth}
 		\centering
 		\begin{tabular}[t]{c|cc}
@@ -142,27 +149,25 @@ The evaluation was conducted on \textit{German} and \textit{English editorial ar
 	\caption{Maximal and minimal entropy values per topic model for English editorial articles.}
 	\label{entr_english}
 \end{figure}
-The Figures \ref{entr_german} and \ref{entr_english} show the change of entropy for \textit{German} respectively \textit{English editorial articles}. The table on the left denotes the minimal and maximal entropy given the number of topics. On the right the maximal entropy values (blue line) and the minimal entropy values (orange line) are plotted. This structure will repeat in the different key figures.
-
-The entropy values for \textit{German editorial articles} (Figure \ref{entr_german}) are decreasing when increasing the number of topics. For the topic model with 240 topics the entropy values starts increasing again. This means, that the topics with a higher topic number are getting more specific until a certain point, when the entropy value is increasing again. This could mean, that the optimal topic number, to generate topics, which are specific, is at the point, when the entropy value has reached its minimum.
-
-For \textit{English editorial articles} (Figure \ref{entr_english}) the maximal entropy value is decreasing up to the topic model with 80 topics. Then the values is rising and for the topic models with 130 and 180 topics the entropy stays the same. For the minimal entropy the values are getting continuously smaller. So the span between the maximal and the minimal entropy value is increasing. This means, that the more topics are generated the more topics get more general and more specific. 
 
 \subsubsection{Alpha}
-%%%german editorial
-\begin{figure}
+
+In Figure \ref{alpha_ger} the alpha values for \textit{German editorial articles} are shown. The maximal alpha values as well the minimal alpha values are decreasing. This indicates, that the documents are described by fewer topics with a higher probability. But alpha does not say anything about the topic quality, so the few topics, which are assigned to the document can be rather general or specific. Therefore, we calculated the entropy for the topic with the maximal alpha value 0.186 from the topic model with 25 topics and the minimal alpha value 0.002 from the topic model with 240 topics. We got the entropy value of 7.08 for the topic model with 25 topics and the entropy value of 6.28 for the topic model with 240 topics. So the document with the highest alpha value consists out of either general topics and the document with the lowest alpha value out of specific ones. 
+
+The minimal alpha values for \textit{English editorial articles} (Figure \ref{alpha_eng}) are continuously declining up to the topic model with 130 topics. Then the alpha value is staying the same. The maximal alpha values are volatile, so there is no prediction possible, if the values will raise or fall again.
+\begin{figure}[h]
 	\begin{minipage}{0.5\textwidth}
 		\centering
-			\begin{tabular}[t]{c|cc}
-				&max value & min value\\
-				\hline
-				25 topics&0.186&0.027\\
-				50 topics&0.104&0.015\\
-				75 topics&0.065&0.011\\
-				140 topics&	0.061&0.004\\
-				190 topics &0.050&0.003\\
-				240 topics&	0.046&0.002\\
-			\end{tabular}
+		\begin{tabular}[t]{c|cc}
+			&max value & min value\\
+			\hline
+			25 topics&0.186&0.027\\
+			50 topics&0.104&0.015\\
+			75 topics&0.065&0.011\\
+			140 topics&	0.061&0.004\\
+			190 topics &0.050&0.003\\
+			240 topics&	0.046&0.002\\
+		\end{tabular}
 	\end{minipage}%
 	\begin{minipage}{0.5\textwidth}
 		\centering
@@ -171,8 +176,7 @@ For \textit{English editorial articles} (Figure \ref{entr_english}) the maximal 
 	\caption{Maximal and minimal alpha values per topic model for German editorial articles.}
 	\label{alpha_ger}
 \end{figure}
-%%%english editorial
-\begin{figure}
+\begin{figure}[h]
 	\begin{minipage}{0.5\textwidth}
 		\centering
 		\begin{tabular}[t]{c|cc}
@@ -193,13 +197,11 @@ For \textit{English editorial articles} (Figure \ref{entr_english}) the maximal 
 	\caption{Maximal and minimal alpha values per topic model for English editorial articles.}
 	\label{alpha_eng}
 \end{figure}
-In Figure \ref{alpha_ger} the alpha values for \textit{German editorial articles} are shown. The maximal alpha values as well the minimal alpha values are decreasing. This indicates, that the documents are described by fewer topics with a higher probability. But alpha does not say anything about the topic quality, so the few topics, which are assigned to the document can be rather general or specific. Therefore, we calculated the entropy for the topic with the maximal alpha value 0.186 from the topic model with 25 topics and the minimal alpha value 0.002 from the topic model with 240 topics. We got the entropy value of 7.08 for the topic model with 25 topics and the entropy value of 6.28 for the topic model with 240 topics. So the document with the highest alpha value consists out of either general topics and the document with the lowest alpha value out of specific ones. 
-
-The minimal alpha values for \textit{English editorial articles} (Figure \ref{alpha_eng}) are continuously declining up to the topic model with 130 topics. Then the alpha value is staying the same. The maximal alpha values are volatile, so there is no prediction possible, if the values will raise or fall again.
 
 \subsubsection{Coherence}
-%% German
-\begin{figure}
+
+The maximal coherence score is for \textit{German editorial articles} (Figure \ref{eval:coherence_ger}) in the range of the maximal values -0.91 and -1.1 and for \textit{English editorial articles} (Figure \ref{eval:coherence_en}) in the range of -0.49 and -0.56. The maximal values do not change a lot for both datasets, but no pattern how the values are changing can be seen. The same can be said for the minimal coherence values, the only difference is, that the range in which the coherence is moving is much bigger than the range from the maximal values. For \textit{German editorials} it is between -3.96 and -9.2 and for \textit{English editorials} between -2.2 and -16.4.
+\begin{figure}[h]
 	\begin{minipage}{0.5\textwidth}
 		\centering
 		\begin{tabular}[t]{c|cc}
@@ -217,12 +219,11 @@ The minimal alpha values for \textit{English editorial articles} (Figure \ref{al
 		\centering
 		\includegraphics[width=7cm]{gfx/Eval_IC/German_Editorial_Coherence.pdf}
 	\end{minipage}
-\caption[]{Maximal and minimal coherence values per topic model for German editorial articles.}
-\label{eval:coherence_ger}
+	\caption[]{Maximal and minimal coherence values per topic model for German editorial articles.}
+	\label{eval:coherence_ger}
 \end{figure}
-	
-%% English
-\begin{figure}
+
+\begin{figure}[h]
 	\begin{minipage}[t]{0.5\textwidth}
 		\centering
 		\begin{tabular}{c|cc}
@@ -243,11 +244,17 @@ The minimal alpha values for \textit{English editorial articles} (Figure \ref{al
 	\caption[]{Maximal and minimal coherence values per topic model for English editorial articles.}
 	\label{eval:coherence_en}
 \end{figure}
-The maximal coherence score is for \textit{German editorial articles} (Figure \ref{eval:coherence_ger}) in the range of the maximal values -0.91 and -1.1 and for \textit{English editorial articles} (Figure \ref{eval:coherence_en}) in the range of -0.49 and -0.56. The maximal values do not change a lot for both datasets, but no pattern how the values are changing can be seen. The same can be said for the minimal coherence values, the only difference is, that the range in which the coherence is moving is much bigger than the range from the maximal values. For \textit{German editorials} it is between -3.96 and -9.2 and for \textit{English editorials} between -2.2 and -16.4.
 
 \subsubsection{Theta}
-\begin{figure}
-	%german
+
+In the following we used the document topic matrix to calculate, in how many documents a certain topic covers more then 10\% of the document and how many topics occur over 10\% in a document. 
+
+First, we start with the number of documents a certain topic covers over 10\%.
+In Figure \ref{eval:amount doc_per_topic_ger} one can see, that the maximal and minimal number of documents is decreasing when increasing the topic number for \textit{German editorial articles}. This indicated, that the topics are so specific, that they do not appear in any document with a probability higher then the threshold.
+
+For \textit{English editorial articles} (Figure \ref{eval:amount doc_per_topic_eng}) the maximal number of documents is volatile, whereas the minimal numbers of documents are decreasing and there even seem to be topics, that are not assigned to any document, because they do not cover the meaning of the document over the threshold. 
+
+\begin{figure}[h]
 	\begin{minipage}[t]{0.5\textwidth}
 		\centering
 		\begin{tabular}{c|cc}
@@ -262,16 +269,14 @@ The maximal coherence score is for \textit{German editorial articles} (Figure \r
 		\end{tabular}
 	\end{minipage}
 	\begin{minipage}{0.5\textwidth}
-	\centering
-	\includegraphics[width=7cm]{gfx/Eval_IC/German_Editorial_Doc_per_topic.pdf}
+		\centering
+		\includegraphics[width=7cm]{gfx/Eval_IC/German_Editorial_Doc_per_topic.pdf}
 	\end{minipage}
-%english
-\caption[]{Maximal and minimal number of documents containing the same topic for German editorial articles.}
-\label{eval:amount doc_per_topic_ger}
+	\caption[]{Maximal and minimal number of documents containing the same topic for German editorial articles.}
+	\label{eval:amount doc_per_topic_ger}
 \end{figure}
 
-\begin{figure}
-%english
+\begin{figure}[h]
 	\begin{minipage}{0.5\textwidth}
 		\centering
 		\begin{tabular}[t]{c|cc}
@@ -289,15 +294,9 @@ The maximal coherence score is for \textit{German editorial articles} (Figure \r
 		\centering
 		\includegraphics[width=7cm]{gfx/Eval_IC/English_Editorial_Doc_per_topic.pdf}
 	\end{minipage}
-\caption[]{Maximal and minimal number of documents containing the same topic for English editorial articles.}
-\label{eval:amount doc_per_topic_eng}
+	\caption[]{Maximal and minimal number of documents containing the same topic for English editorial articles.}
+	\label{eval:amount doc_per_topic_eng}
 \end{figure}
-In the following we used the document topic matrix to calculate, in how many documents a certain topic covers more then 10\% of the document and how many topics occur over 10\% in a document. 
-
-First, we start with the number of documents a certain topic covers over 10\%.
-In Figure \ref{eval:amount doc_per_topic_ger} one can see, that the maximal and minimal number of documents is decreasing when increasing the topic number for \textit{German editorial articles}. This indicated, that the topics are so specific, that they do not appear in any document with a probability higher then the threshold.
-
-For \textit{English editorial articles} (Figure \ref{eval:amount doc_per_topic_eng}) the maximal number of documents is volatile, whereas the minimal numbers of documents are decreasing and there even seem to be topics, that are not assigned to any document, because they do not cover the meaning of the document over the threshold. 
 
 \begin{figure}
 	

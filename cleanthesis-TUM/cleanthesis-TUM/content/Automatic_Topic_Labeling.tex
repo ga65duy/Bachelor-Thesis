@@ -1,4 +1,5 @@
-
+\chapter{Experiments and Results}
+\label{chap4}
 \section{Automatic Topic Labeling}
 \label{automaticTL}
 Topic Models are used to discover latent topics in a corpus to help to understand large collections of documents. These topics are multinomial distributions over all words in a corpus. Normally, the top terms of the distribution are taken to represent a topic, but these words are often not helpful to interpret the coherent meaning of the topic. Especially, if the person is not familiar with the source collection. For example, for the topic \textit{price, \$, cost, foods, store, product, brand, low, supermarket, good} a  suitable label is \textit{food prices}.
@@ -61,7 +62,7 @@ Score(l,\theta) = E_{\theta}(PMI(w,l|C))
 \label{Mei:Scoring}
 \end{equation}
 
-\begin{figure}[t]
+\begin{figure}
 	\begin{minipage}[t]{0.5\textwidth}
 		\includegraphics[width=\textwidth]{gfx/Mei/MeiGoodLabel.png}
 	\end{minipage}
@@ -161,8 +162,8 @@ Considering just  the labels without verifying the topics, they are assigned to,
 \end{figure}
 
 In Table \ref{tab:extrinsic_manually} example topics are shown, which were labeled manually by domain experts and with the intrinsic approach. The intrinsic labels do not fit to the given topic: \textit{Rahm Emanuel} an American politician is assigned to Topic 107, which deals with environment and waste. \textit{Hairy vetch}, a plant variety, for Topic 23. \textit{Irritable bowel syndrome}  to Topic 64 and \textit{Safran Foer}, an American novelist, to Topic 74, dealing with animal husbandry. The automatic labels have nothing in common with the manual ones.
-% mai label und hannah
-%%tabelle mit hannas
+\newpage
+
 \begin{table}[h]
 	\begin{minipage}[t]{0.5\textwidth}
 		\begin{tabular}{c|l}
@@ -213,6 +214,7 @@ In Table \ref{tab:extrinsic_manually} example topics are shown, which were label
 	\caption[Labeled topics manually and with intrinsic method and ]{Topics labeled manually and with intrinsic methods.}
 	\label{tab:extrinsic_manually}
 \end{table}
+
 
 \paragraph{Topics including POS-tagging:}
 
@@ -278,12 +280,6 @@ In Table \ref{tab:intrinsic_label_pos} topics and labels are shown with differen
 	\label{tab:intrinsic_label_pos}
 \end{table}
 
-In Figure \ref{fig:labelcount_intrinsic_pos} the label counts for English editorial articles using the texts, that were \ac{POS}-tagged are shown. On the x-axis all labels are listed, while the y-axis denotes the number of same labels. 
-In the plots where \ac{POS}-tags were applied, no labels include a name of persons and a smaller number of labels was outputted in contrast to the plot without \ac{POS}-tags. 
-
-However, the same observation can be made as above. Although, the labels seem meaningful and specific they do not really fit to the topics. We assume that the high quality of the labels themselves stem from the way they are generated. By applying bi-gram mining on the original corpus only useful word combinations are found as candidate labels. That the labels seemingly do not fit to the topics means that measuring the relatedness between the topics and the labels by their KL-divergence is not successful on our data.
-
-%label counts for pos
 \begin{figure}[h]
 	\begin{minipage}[t]{0.5\textwidth}
 		\includegraphics[width=7cm,height=7.5cm]{gfx/POS-gen1/mit_NN.pdf}
@@ -300,7 +296,13 @@ However, the same observation can be made as above. Although, the labels seem me
 	\caption{Label counts for topics including \ac{POS}-tags with intrinsic method.}
 	\label{fig:labelcount_intrinsic_pos}
 \end{figure}
+In Figure \ref{fig:labelcount_intrinsic_pos} the label counts for English editorial articles using the texts, that were \ac{POS}-tagged are shown. On the x-axis all labels are listed, while the y-axis denotes the number of same labels. 
+In the plots where \ac{POS}-tags were applied, no labels include a name of persons and a smaller number of labels was outputted in contrast to the plot without \ac{POS}-tags. 
 
+However, the same observation can be made as above. Although, the labels seem meaningful and specific they do not really fit to the topics. We assume that the high quality of the labels themselves stem from the way they are generated. By applying bi-gram mining on the original corpus only useful word combinations are found as candidate labels. That the labels seemingly do not fit to the topics means that measuring the relatedness between the topics and the labels by their KL-divergence is not successful on our data.
+
+
+\newpage
 \subsubsection{Extrinsic topic labeling}
 \label{eval:extrinsic}
 Furthermore, we applied the \ac{ATL} in section \ref{sec:extrinsic} on our Dataset, using the English online database WordNet and Polyglot embeddings. The described different similarity functions from WordNet, the \ac{csf} and the Polyglot embeddings were used to label our topics. A few examples are shown in Table \ref{tab:labeled_extrinsic_and_manually} including the manual assigned labels to the topics, too. Some labels generated with the automatic approaches match the manual assigned labels. This is the case for the Topics 64, 84 and 107. For the other topics, the labels are heading to the same direction as the manual label: for Topic 97 \textit{chemical} and manually \textit{pesticide residues}, for Topic 99 \textit{bee} and manually \textit{beekeeping} and for Topic 109 \textit{grocery store, mercantile establishment, marketplace} and manually \textit{retailers} were assigned.
@@ -454,7 +456,7 @@ Furthermore, we applied the \ac{ATL} in section \ref{sec:extrinsic} on our Datas
 Evaluating the automatically generated labels using different approaches, it was discovered that depending on the topics different labeling techniques output the best labels. It is not possible to tell, which approach is the best for all topics, let alone for several topic models according to the labels. Therefore, we tried to evaluate the labels generated with the extrinsic methods according to label counts. The words \textit{entity, physical entity, object, whole, matter} and \textit{abstraction} were chosen, because these are the most general words in the hierarchical tree of hypernyms in WordNet and do not have a high informative value. 
 In Table \ref{tab:label_count_non_informative} the number of non informative words are listed for the different similarity functions from WordNet. Based on the sum of the non informative words per similarity function and Polyglot embeddings (plg), we ranked the different methods in Table \ref{tab:ranked_non_info}. The top 3 are: res-similarity with preprocessing, lin-similarity with preprocessing and Polyglot embeddings.
 %%labelcount uninformative words
-\begin{table}[h]
+\begin{table}
 	\begin{tabular}{c|c|c|c|c|c|c|c}
 		%& \multicolumn{6}{c}{Count of labels}\\
 		%\hline
